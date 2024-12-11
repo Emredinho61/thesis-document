@@ -1,0 +1,78 @@
+\chapter{Topologies}\label{chap:topologies}
+The simulations were conducted for six distinct network topologies. Each network has $2^{10}$ (1024) nodes. The behaviour of the algorithms in these different topologies is observed, since each topology has different characteristics, different performances exploiting the specials of the topologies are expected. The topologies contain the \textit{complete graph}, \textit{Torus Grid Graph}, \textit{Ring Graph}, \textit{Star Graph}, \textit{Lollipop Graph} and \textit{Ring of Cliques}. In the following the topologies including there characteristics are presented. 
+
+\todo{introduce and check the abbr. for each graph: complete graph: K n and so on and verify new edge size and so on}
+
+\section{Complete Graph}\label{sec:2completegraph}
+The complete graph $K_n$ as illustrated in \hyperref[fig:completegraphDemo]{figure} \ref{fig:completegraphDemo} is a graph where each pair of distinct nodes is connected by an edge. The complete graph or also refered to as fully-connected graph has $n$ nodes and $\frac{n\times(n-1)}{2}$ edges. The complete graph is a regular graph, where each node has a degree of $n-1$. As it contains the maximum possible number of edges for a given set of nodes (the maximum number of edges per node  for undirected graphs is $n$, when self-loops are allowed), the complete graph is considered a dense graph \cite{GraphTheorySchindelhaauer2021}. The diameter of a complete graph is 1, as each node is directly connected to every other node. Since node has same degree and connectivity, algorithms can treat all nodes uniformly. 
+
+\todo{images auskommentieren und mehr zu den besonderen Charakteristiken der einzelnen graphentypen schreiben}
+% 
+% \begin{figure}[H]
+%     \centering
+%     \input{figures/Graphs/completegraph.tex}
+%     \caption{Complete graph: network size 16}
+%     \label{fig:completegraphDemo}
+% \end{figure}
+%  
+\section{Torus Grid Graph}\label{sec:2torusgridgraph}
+The two-dimensional torus grid graph or also refered to as $m \times n$-torus graph is a two-dimensional mesh with wrap around edges as depicted in \hyperref[fig:torusGraph]{figure} \ref{fig:torusGraph} \cite{Mahlmann2010}. $m$ denotes the height and $n$ denotes the width of the grid. The torus grid graph has $2\times m \times n$  edges and $m \times n$ nodes and is a regular graph, where each node has a degree of 4. The diameter of a torus grid graph is $\frac{min(m,n)}{2}$. Tori are scalable, as the number of connections per node is constant, regardless of the graph size. In the previous research "Comparative Analysis of Load Balancing Algorithms in General Graphs" \cite{Bayazitoglu}, we saw this as the simulation results did not vary over different network sizes.
+
+% \begin{figure}[H]
+%     \centering
+%     \scalebox{1.5}{\input{figures/Graphs/torusgridgraph.tex}}
+%     \caption{Torus grid graph: network size 16}
+%     \label{fig:torusGraph}
+% \end{figure}
+
+\section{Ring Graph}\label{sec:2ringgraph}
+The ring graph is a regular graph, where each node has a degree of two, forming a cycle. The ring graph can be constructed by building a path graph which is closed, meaning that the first and the last nodes of the path graph are connected by an edge as depicted in \hyperref[fig:ring]{figure } \ref{fig:ring}. The graph consists of $n$ nodes and $n$ edges. The diameter of a ring is $\lfloor{\frac{n}{2}}\rfloor$. The uniform structure ensures no single node has an advantage, simplifying algorithm design and guaranteeing fairness in load balancing.
+
+% \begin{figure}[H]
+%     \centering
+%     \scalebox{0.8}{\input{figures/Graphs/ring.tex}}
+%     \caption{Ring graph: network size 16}
+%     \label{fig:ring}
+% \end{figure}
+
+\section{Star Graph}\label{sec:2stargraph}
+A star graph as depicted in \hyperref[fig:stargraphDemo]{figure} \ref{fig:stargraphDemo} is a bipartite graph \cite{west2001introduction}, structured like a tree graph with one internal node and k-leaves (but no internal nodes and $k + 1$ leaves when $k \leq 1$). The internal node belongs to one of these disjoint sets, while the leaves are assigned to the other set. A star graph with $n$ nodes has $n-1$ edges. In this structure, every leave node has a degree of 1, meaning it is connected only to the internal node. The central node has a degree of $n-1$. The diameter of a star graph is 2 (path from one leave through internal node to another leave). Regarding load balancing the internal node acts as a point of redistribution. This topology is particularly suitable for master-slave or client-server models where the central node delegates tasks and collects results. However, the central node may become overloaded in high-load scenarios, requiring careful design to prevent bottlenecks.
+
+% \begin{figure}[H]
+%     \centering
+%     \input{figures/Graphs/star.tex}
+%     \caption{Star graph: network size 16}
+%     \label{fig:stargraphDemo}
+% \end{figure}
+% 
+
+\section{Lollipop Graph}\label{sec:2lollipopgraph}
+A $(k, m)$-lollipop graph ($L_{k,m}$) is a graph that consists of a complete graph and a path graph as depicted in \hyperref[fig:lollipopgraphDemo]{figure} \ref{fig:lollipopgraphDemo}. The complete graph and the path graph are connected by a bridge node, thus a single edge. The $(k, m)$-Lollipop graph is composed of a complete graph with $k$ nodes and a path size of $m$ nodes. A lollipop graph has $k+m = n$ nodes and $\binom{k}{m}+k$ or $(\binom{k}{2} + (n-k-1))$ ??? edges \cite{JonassonLollipopGraphs2000}.
+
+%\begin{figure}[H]
+%    \centering
+%    \scalebox{1}{\input{figures/Graphs/lollipop.tex}}
+%    \caption{Lollipop graph: network size 16}
+%    \label{fig:lollipopgraphDemo}
+%\end{figure}
+
+\section{Ring of Cliques}\label{sec:2ringofcliquegraph}
+The ($k \times m$)-ring of cliques, consists of $k$ cliques, each containing $k$ nodes. The cliques are connected to form a ring structure. To create the ring, one edge from each clique is removed, and the endpoints of these removed edges are connected to form a regular graph \cite{Mahlmann2010}. A $k \times m$ ring of cliques has $\left( k\times \left(\frac{m\times (m - 1)}{2}-1 \right) \right) +k$ edges. The connectivity of the graph increases with larger clique sizes and decreases with smaller clique sizes.
+% \begin{figure}[H]
+%     \centering
+%     \scalebox{1}{\input{figures/Graphs/ringofcliques.tex}}
+%     \caption{Ring of cliques: network size 16}
+%     \label{fig:ringofcliquesDemo}
+% \end{figure}
+
+\section{Expected Outcome}\label{sec:expectedoutcome}
+\todo{Remove these notes/reformulate them}
+Many load balancing algorithms perform well on 2D torus grids due to the focus on local redistribution, thanks to the wrap around edges eliminiating boundary effects, ensuring balanced redistribution across entire grid.
+
+Ring: Unlike complete or torus graphs, the sequential nature of data transfer makes it slower for loads to propagate across the entire ring. Load movement in the ring graph is sequential, making it slower and less flexible than the complete graph.
+
+Star: For the Push-Pull mechanism the star graph is an advantage, since each push action contains a pull action. All leaves request data from the internal node, so the internal node acts here as an point of redistribution. However for the Deal-Agreement-Based protocol some mechanisms like "if condition" act as a contraproductive way of load balancing.
+
+Lollipop: Algorithms must account for the highly connected complete graph (dense communication) and the linear path graph (sequential communication), which introduces a mixed topology challenge. The node linking the complete graph and the path graph often becomes a bottleneck since it bridges two vastly different connectivity regions. In the complete graph, load balancing is efficient due to the high connectivity, enabling rapid redistribution among nodes. Load movement in the path graph is sequential, making it slower and less flexible than the complete graph. Interesting because dense head and sparse tail.  For example, diffusion-based approaches work well in the head but may require additional iterations in the tail. We saw that in "Comparative Analysis of Load Balancing algorithms in General Graphs" \cite{Bayazitoglu}, once we changed the path size in relation to same complete graph, the DAB was faster in reducing error for the first 50 rounds. \todo{Do the simulations over again with different path and complete graph size and compare.}
+
+Ring of cliques: Within each clique, balancing is fast due to the dense connectivity. Load redistributes efficiently among the clique's nodes. Balancing between cliques depends on the single shared node linking each pair of cliques. This structure ensures sequential redistribution across the ring. The shared nodes act as gateways, controlling the flow of load between cliques. Overloading these nodes can cause bottlenecks.

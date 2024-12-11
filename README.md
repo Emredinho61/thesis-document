@@ -2,13 +2,17 @@
 > Working title: "Design, Simulation, and Evaluation of a Load Balancing Algorithm for Peer-to-Peer-Networks based on Push-Pull Sum and Deal-Agreement-Based Algorithms"
 
 ## Abstract:
-The Push-Pull Sum protocol, as introduced in \cite{nugroho2023PushPullSumDataAg}, combines the Push-Sum \cite{kempe2003gossipbasedComp} and Pull-Sum protocols. The Push-Sum protocol, proposed by Kempe et al., is a load balancing algorithm where each node randomly selects a neighbor and transfers half of its current sum and weight to that neighbor. Like the Push-Sum, the Push-Pull Sum protocol is also a randomized load balancing algorithm. These protocols are used to balance loads in peer-to-peer networks, modeled as undirected graphs. In these networks, nodes exchange loads with their neighbors in order to reach a balanced network state. The Single-Proposal Deal-Agreement-Based load balancing algorithm as proposed in \cite{Dinitz2023DAB}, incorporates a Deal-Agreement into the load transfer to achieve only fair load transfers between two nodes.
+The Push-Pull Sum protocol, as introduced in <cite>\[1\]</cite>, combines the Push-Sum and Pull-Sum protocols <cite>\[2\]</cite>. The Push-Sum protocol, proposed by Kempe et al., is a load balancing algorithm where each node randomly selects a neighbor and transfers half of its current sum and weight to that neighbor. Like the Push-Sum, the Push-Pull Sum protocol is also a randomized load balancing algorithm. These protocols are used to balance loads in peer-to-peer networks, modeled as undirected graphs. In these networks, nodes exchange loads with their neighbors in order to reach a balanced network state. The Single-Proposal Deal-Agreement-Based load balancing algorithm as proposed in <cite>\[3\]</cite>, incorporates a Deal-Agreement into the load transfer to achieve only fair load transfers between two nodes.
 
 In this thesis, we introduce and implement a variation of the Push-Pull Sum protocol using principles of the Deal-Agreement-Based protocol and adaptive thresholding, designed to add or modify certain properties of the original Push-Pull Sum protocol. For the newly introduced load balancing approach, we provide the pseudocode, implement the algorithm in a peer-to-peer simulation tool, and analyze the simulation outcomes for different topologies. The aim is to find a compromis solution including overall good performance in different topologies.
 
 The performance of this variations is evaluated using the mean squared error (MSE) reduction over time as a metric for convergence to the ground truth. The results are presented through log-log and log-linear graphs, which allow a comparison of the convergence rates and stability in different scenarios. The slope of the MSE curves reflects how efficiently the protocols distribute the load across the network. In addition to evaluating the efficiency, this thesis also analyzes potential drawbacks of each variation, such as increased communication overhead or slower convergence in certain scenarios. The data is fitted into different models to get an insight into the rate of convergence.
 
-The findings suggest that while the modification provide improvements in specific aspects—such as faster convergence in some scenarios—others highlight trade-offs between performance and reliability. \todo{Some more information about the outcomes.}
+\[1\]: S. Nugroho, A. Weinmann, and C. Schindelhauer, Adding Pull to Push Sum for Approximate Data Aggregation. Springer, 2023.
+
+\[2\]:D. Kempe, A. Dobra, and J. Gehrke, “Gossip-based computation of aggregate information,” in 44th Annual IEEE Symposium on Foundations of Computer Science, 2003. Proceedings., pp. 482–491, 2003.
+
+\[3\]:Y. Dinitz, S. Dolev, and M. Kumar, “Local deal-agreement algorithms for load balancing in dynamic general graphs,” Theory of Computing Systems, vol. 67, pp. 348–382, Apr 2023.
 
 ## Structure
 1. Introduction
@@ -53,5 +57,5 @@ The findings suggest that while the modification provide improvements in specifi
 8. Acknowledgments
 9. Appendix
 
-## Simulatio Outcomes
+## Simulation Outcomes
 The simulation outcomes can be found in the thesis_main.pdf.

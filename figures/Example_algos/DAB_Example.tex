@@ -36,22 +36,10 @@
     \draw (B2) -- (D2);
     \draw (C2) -- (D2);
 
-    \draw[->] (C1) to[out=120, in=240] node[left] {$t_{A,B}$} (A1);
-    \draw[dashed, ->] (C1) to[out=60, in=300] node[right] {$\frac{l_{C}-l_{A}}{2}$} (A1);
-    \draw[dashed, ->] (B1) to[out=210, in=330] node[above] {$\frac{l_{B}-l_{A}}{2}$} (A1);
-    \draw[dashed, ->] (D1) to[out=120, in=330] node[right] {$\frac{l_{D}-l_{A}}{2}$} (A1);
-
-
-
-
-    
-    \draw[->] (C2) to[out=120, in=240] node[left] {$29.5$} (A2);
-    \draw[dashed, ->] (C2) to[out=60, in=300] node[right] {$29.5$} (A2);
-     \draw[dashed, ->] (B2) to[out=210, in=330] node[above] {$6$} (A2);
-     \draw[dashed, ->] (D2) to[out=120, in=330] node[right] {$20.5$} (A2);
-
-    \node at (2.5,6) {Initial Setup};
-    \node at (9.5,6) {Setup after round 1};
+    \draw[->] (C1) to[out=120, in=240] node[left] {$29.5$} (A1);
+    \draw[dashed, ->] (C1) to[out=60, in=300] node[right] {$29.5$} (A1);
+    \draw[dashed, ->] (B1) to[out=210, in=330] node[above] {$6$} (A1);
+    \draw[dashed, ->] (D1) to[out=120, in=330] node[right] {$20.5$} (A1);
 
     % Legend in the middle below the graphs
     \begin{scope}[shift={(3,-2)}]

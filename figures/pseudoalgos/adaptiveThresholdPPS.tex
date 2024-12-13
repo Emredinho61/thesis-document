@@ -2,7 +2,7 @@
     \caption{Adaptive Threshold Push-Pull Sum protocol}\label{alg:PPS}
     \begin{algorithmic}[1]
     \Procedure{CalculateThresholds}{}
-    \State $\theta \leftarrow k * \sqrt{MSE_{t-1}}$ 
+    \State $\theta \leftarrow k * \sqrt{MSE_{r-1}}$ 
     \EndProcedure
     \Procedure{CheckTresholdRequestData}{}
     \State $RN \leftarrow$ choose $\lceil \log_{2}{(|neighborhood(u)|)} \rceil$ random neighbor

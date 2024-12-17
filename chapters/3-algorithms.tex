@@ -10,12 +10,20 @@ The Push-Pull Sum algorithm has the mass-conservation property \cite{nugroho2023
 
 The Push-Pull Sum protocol seemed to perform very well for the complete graph, the Ring of Cliques with large clique size and Lollipop graphs with large clique size, and the star graph. For the star graph the internal node acts as a distributor of the load. While every leaf chooses with 100\% possibility the internal node as a "random" neighbor the internal node is involved as a endpoint of $n-1$ external push operations, and redistributes the load via pull operations to the leaves, where the sum is $\frac{\frac{s_{i,r}}{2}}{n-1}$ and accordingly the weight is $\frac{\frac{w_{i,r}}{2}}{n-1}$. A different explanation applies for the Complete graph, the Ring of Cliques and the Lollipop graph, where the density of each node plays an crucial role. Nodes choose a random neighbor, since the dense graphs have many edges. Randomly choosing a neighbor allows the algorithm to spread loads effectively without relying on a deterministic path, reducing the likelihood of bottlenecks or overloading a single node. That is the reason, why the Push-Pull Sum algorithm did not perform so well for the Torus Grid graph and the Ring graph, where the number of edges is limited to $4$ and $2$ respectively. Here bottlenecks may occur, since two nodes may push back and fourth, with the sum being $\frac{s_{i,r}}{2}$ and the weight being $\frac{w_{i,r}}{2}$, eventhough the load of the nodes may already been averaged and better options for load transfers are ignored due to the lack of determinism.
 \subsection{Example}\label{subsec:examplePPS}
-\begin{center}
-    \input{figures/Example_algos/PPS_Example.tex}
-\end{center}
-\begin{center}
-    \input{figures/Example_algos/PPS_Example_result.tex}
-\end{center}
+% \begin{figure}
+%     \centering
+%     \input{figures/Example_algos/PPS_Example.tex}
+%     \caption{Left: Push actions; Right: Pull actions}
+%     \label{fig:examplePPSSetting}
+% \end{figure}
+The example in figure \ref{fig:examplePPSSetting} depicts a complete graph $K_4$ (4 nodes) labeled from \textit{A} to \textit{D}. Each node has a initial sum and weight value assigned. The undirected graphs depict the connections indicating which nodes are neighboring nodes. The solid directed edges depict the push operations and the dashed directed edges depict the pull operations. Each node has a set $R_{i,r}$ where $i$ is the node id and $r$ is the round where we inspect the set. The load of the node is calculated by $\frac{s_{i,r}}{w_{i,r}}$. The example depicts the first round of a execution of the Push-Pull Sum algorithm. The push and pull operations are distinct. The left-hand side depicts the behaviour of the nodes while executing the push operations, while the right-hand side depicts the case of pull operations. Each node chooses a random neighbor to push load to. $A$ selected node $C$ and pushes half of its sum and weight to the chosen node $C$ and to itself (the loops are not included into the graphics, due to the readability of the figures). Node $B$ chose $A$ as a trading partner, node $C$ and $D$ push to node $B$ and themselves. Given the push operations for each node the set $R_{i,r}$ is computed. Due to node $B$ pushing load to node $A$ and node $A$ pushing load to itself, the set $R_{A,1}$ evaluates to $\{A,B\}$. The updated sum and weight values can be insptected on the right hand side of figure \ref{fig:examplePPSSetting}. Following the push actions, each node proceeds with the \textit{ResponseData}-procedure. For all the nodes in $R_{i,1}$ the nodes reply with the pull values. Since node $A$ has two nodes in its set $R_{A,1}$, node $A$ replies with $\left(\frac{\frac{3}{2}}{2}, \frac{\frac{1}{2}}{2}\right)$ to node $B$ and itself, indicated by a dashed directed edge. Accordingly, the remaining nodes \textit{B, C and D} execute the pull operations. Following the push and pull operations the nodes sum and weight values are updated. The setting after round one is depicted in figure \ref{fig:examplePPSResult}. The mean squared error in the beginning of round 1 is $542.50$, following one round of applying the Push-Pull Sum algorithm the mean squared error after round 1 is $63.49$. The average values (loads) can be taken from table \ref{tab:overviewExamples}.
+
+% \begin{figure}
+%     \centering
+%     \input{figures/Example_algos/PPS_Example_result.tex}
+%     \caption{Setting after round 1}
+%     \label{fig:examplePPSResult}
+% \end{figure}
 
 \section{Contiunous Single-Proposal Deal-Agreement-Based Protocol}\label{sec:singleproposalDAB}
 The Continuous Single-Proposal Algorithm Deal-Agreement-Based algorithm proposed by \cite{Dinitz2023DAB}, is unlike the Push-Pull Sum protocol not an diffusion-based load balancing algorithm. The goal of load balancing is achieved based on deterministic deal-agreements, where one node proposes node to one neighboring node and the neighboring node either accepts transfer proposal in either full or partialy. Dinitz et al. algorithm is a anytime algorithm, as they never the worsen the state of the network during execution. They can be stopped at \textit{any time} of the execution. They studied the algorithm in a dynamic setting, which means that the graph may experience changes between rounds. Furthermore, the algorithm is a localized one, where the nodes only work with the information regarding the load state of themselves and their neighbors load state. Each node has a set of neighboring nodes and their including the node's initial load itself as initial information. The algorithm is divided into three phases. There is the \textit{proposal}, \textit{deal} and the \textit{summary}-phase. In the \textit{proposal}-phase each node $u$ contacts the minimal loaded neighbor \textit{v} and sends a proposal to that neighbor, if the neighbor is less loaded. The proposal is of value $(\frac{load_{r}(u)-load_{r}(v)}{2})$, which is labeled as a \textit{fair} proposal. Since the load transfer is fair, the resulting load of $u$ is not lower than that of $v$. Following that, the nodes enter the \textit{deal}-phase. In this phase nodes evaluate the deals proposed to them. A node accepts the deal of the node that proposes the maximal load transfer. The actual transfer happens and the load values are being updated. Finally, in the \textit{summary}-phase each node informs their neighbors regarding their updated load values. \cite{Dinitz2023DAB}
@@ -24,18 +32,45 @@ The analysis in this paper is based on a potential function. Dinitz et al. defin
 
 The Single-Proposal Deal-Agreement-Based load balancing algorithm seems to have difficulties in reducing the mean squared error as rapidly as the Push-Pull Sum algorithm for dense graphs like the a complete graph, the Lollipop graph with large clique size, the ring of cliques with large clique sizes. This seems to be the case, since each node is looking for a minimal load partner. For a complete graph the minimal load partner are the same nodes with same loads equal to the minimal load of the network. This causes each node to propose to the same node with $L_{min}$ which then evaluates the proposals, and accepts exactly one transfer proposal, namely the maximal one. An analouge scenario happens for the Ring of Cliques and Lollipop graph, with the difference that for the Ring of Cliques not each node is proposing to the same minimal neighbor, but for the minimal laoded neighbor within their respective cliques. For the Lollipop graph, the nodes in the path graph balance their loads more quickly than the nodes in the clique which is a bottleneck in this scenario. Looking at the Torus Grid graph and the Ring graph, this Deal-Agreement-Based protocol seems to perform very well in reducing the error, since the proposals are more distributed for the nodes due to the density of the graph, and thus more nodes are involved in load transfers. The star graph makes an exception to this case, since we have a similar bottleneck as in the complete graph, where the internal node is the common neighbor for each leaf and thus each leaf proposes load to the internal node. The internal node, then chooses only the maximal proposing transfer. The simulation results in the student project \cite{Bayazitoglu} indicate the performances of each load balancing algorithm for each topology very clearly.
 \subsection{Example}\label{subsec:exampleDAB}
-\input{figures/Example_algos/DAB_Example.tex}
-\todo{See section 1.1 of Dinitz paper to describe to methods of load balancing fot the DAB.}
+ % \begin{figure}
+ %    \centering
+ %    \input{figures/Example_algos/DAB_Example.tex}
+ %    \caption{Left: Initial Setup; Right: Result}
+ %    \label{fig:DABExampleAlgo}
+ % \end{figure}
+ Figure \ref{fig:DABExampleAlgo} depicts two settings. The setting is the same as in the example above in the Push-Pull Sum section, with the difference that each node has a load value assigned, instead sum and weight values. The dashed directed edge in this example represent a proposal from one node to another. The solid directed edge represents the actual load transfered from one node to another. We again consider the nodes \textit{A, B, C and D}. Each node looks for its minimal loaded neighbor. For nodes \textit{B, C and D} this is node $A$. For node $A$ this is node $B$, since node $B$ has more load than node $A$, node $A$ does not send an transfer proposal to node $B$. Nodes \textit{B, C and D} each send a transfer proposal of value $\frac{(load_r(i)-load_r(A))}{2}$ to node $A$. Node $A$ evaluates each transfer proposal and accepts node $C$'s transfer proposal, since node $C$ proposes the maximal amount of load, namely $29.5$. The actual transfer happens and $29.5$ of loads are transfered from node $C$ to node $A$. The right-hand side of figure \ref{fig:DABExampleAlgo} depicts the setting after round 1. Node $A$ and $C$ each have a load of $32.5$, the loads of nodes $B$
+ and $D$ are unchanged. The mean squared in the beginning of round 1 is at $542.5$, in the end of round 1 the mean squared error decreases to a value of $107.375$, which is close to a fifth of the initial mean squared error. 
 
 \section{Adaptive Threshold Push-Pull Sum Protocol}\label{sec:adaptivethresholdPPS}
 The Adaptive Threhsold Push-Pull Sum algorithm is composed of different ideas and elements of the two former algorithms, extended by the idea of adaptive thresholding. The Adaptive Threshold Push-Pull Sum consits of different procedures. In the \textit{CheckThresholdsRequestData} each node $i$ chooses a subset $RN$ of $\log_{2}{(|neighborhood|)}$ random neighbors. This is to enhance the chance of a good load transfer to happen. If we only choose one neighbor the chance is lower to find an optimal or good neighbor to execute a load transfer. Then the load difference between the node $i$ and each node in $RN$ is computed and checked if the load difference is bigger than some threshold $\theta$. The threshold is computed in the \textit{CalculateThresholds}-procedure. The threshold $\theta$ is computed as $k*\sqrt{MSE_r-1}$ where $k$ is some factor to adjust the sensitivity of the threshold. A larger $k$ means the threshold is more sensitive meaning that less nodes are eligiable for load transfer and vice versa. This condition prevents load transfers with low effect, and guarantees a selection of nodes with effect above the given threshold. The first eligiable node receives the sum and the weight in form of a push action $(\frac{s_i,r}{2})$ for the sum and $(\frac{w_i,r}{2})$ for the weight. The \textit{ResponseData}, and the \textit{Aggregate}-procedure are analoge to the classic Push-Pull Sum algorithm. The push and the pull mechanism are directly taken from the Push-Pull Sum algorithm, thus the name Adaptive Threshold Push-Pull Sum algorithm. Two ideas are derived from the Single-Proposal Deal-Agreement-Based algorithm. The idea of the conditional load transfer is analog to the Single-Proposal Deal-Agreement-Based's one, with the only difference that the difference of load between the two negotiating nodes shouldn't be larger than $0$, but bigger than a threshold $\theta$. And instead of initiaing a load transfer with the maximal loaded node, the Adaptive Threshold Push-Pull Sum algorithm orders the nodes to initiate a load transfer with the first node proposing load. The reason for that is that we want to avoid that each node looks through the whole set $R_n$ and needs to evaluate each proposal, instead the first node proposing a load transfer is accepted as a transfer partner.
 \input{figures/pseudoalgos/adaptiveThresholdPPS.tex}
 \subsection{Example}\label{subsec:exampleAdaptiveThresholdPPS}
-\begin{center}
-    \input{figures/Example_algos/ATPPS_Example.tex}
-\end{center}
-\begin{center}
-    \input{figures/Example_algos/ATPPS_Example_result.tex}
-\end{center}
+% \begin{figure}
+%     \centering
+%     \input{figures/Example_algos/ATPPS_Example.tex}
+%     \caption{Left: Push actions; Right: Pull actions}
+%     \label{fig:ATPPSExampleSetting}
+% \end{figure}
+Figure \ref{fig:ATPPSExampleSetting} depicts a similar setting as described in the section \ref{subsec:examplePPS}. Now, according to the Adaptive Threshold Push-Pull Sum algorithm, each node chooses $\log_{2}{(|neighborhood|)}$ neighbors. For this setting, this means that each node chooses 2 neighbors. These neighbors are added to the set $RN_{i,1}$ for each node $i$. For instance, node $A$ computed $RN_{A,1}$ as $\{B,C\}$. The load differences between node $A$ and nodes $B$ and $C$ are computed respectively. In this example, $k$ is $0.01$, thus the threshold $\Theta$ in this case is $0.01*\sqrt{542.5} \approx 0.23$. Since both load differences between nodes $A$ and $B$, and nodes $A$ and $C$ pass this threshold, both nodes are eligiable to propose to transfer load with node $A$. In this scenario node $A$ chooses node $B$ as a transfer partner and pushes half of its sum $1.5$ and weight $0.5$ to node $B$ and itself. Accordingly, for each node respectively. Similar to the example in section \ref{subsec:examplePPS} the nodes execute the pull operation. The result is depicted in figure \ref{fig:ATPPSExampleResult}. The mean squared error dropped from $542.5$ initially, to $251.86$.
+% \begin{figure}
+%     \centering
+%     \input{figures/Example_algos/ATPPS_Example_result.tex}
+%     \caption{Setting after round 1}
+%     \label{fig:ATPPSExampleResult}
+% \end{figure}
 \subsection{Aspired Outcome}\label{subsec:aspiredOutcomeAdaptiveThresholdPPS}
 Thinking of the simulation results presented in \cite{Bayazitoglu} the discrepancy between the MSE reduction per round for the different topologies show that the algorithms perform either very well or medicore to bad. The main idea and perspective designing this algorithm was to find a compromise solution to that, to provide a better adaptability for different network topologies.
+
+\todo{Table with the results of the algorithms during and after round 1 summed up.}
+
+
+\begin{table}[]
+    \begin{tabular}{|l|l|l|}
+    \hline
+     &  &  \\ \hline
+     &  &  \\ \hline
+     &  &  \\ \hline
+    \end{tabular}
+    \caption{Overview over example outcomes}
+    \label{tab:overviewExamples}
+\end{table}

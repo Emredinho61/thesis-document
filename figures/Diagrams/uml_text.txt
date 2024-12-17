@@ -1,0 +1,29 @@
+// Sweet Class Diagram
+// -------------------
+
+// Chain elements like this
+[PushPullSumProtocol]<>->[PushPullSumObserver]++->[LoadBalancingParameters]
+
+
+[≪Control≫;PushPullSumObserver|protocolID:int|execute():bool; transferLoads():void; formTopology():void]
+
+[≪CDProtocol, Linkable≫;PushPullSumProtocol|protocolSpecificParameters:any|nextCycle():void;degree():int; addNeighbor():boolean; clone():Object; onKill():void; contains():boolean; getNeighbor():Node]
+
+// Sweet Class Diagram
+// -------------------
+
+// Chain elements like this
+[DealAgreementBasedProtocol]<>->[DealAgreementBasedObserver]++->[LoadBalancingParameters]
+
+
+[≪Control≫;DealAgreementBasedObserver|protocolID:int|execute():bool; transferLoads():void; formTopology():void]
+
+[≪CDProtocol, Linkable≫;DealAgreementBasedProtocol|protocolSpecificParameters:any|nextCycle():void;degree():int; addNeighbor():boolean; clone():Object; onKill():void; contains():boolean; getNeighbor():Node]
+
+// Chain elements like this
+[AdaptiveThresholdPPSProtocol]<>->[AdaptiveThresholdPPSObserver]++->[LoadBalancingParameters]
+
+
+[≪Control≫;AdaptiveThresholdPPSObserver|protocolID:int|execute():bool; transferLoads():void; formTopology():void]
+
+[≪CDProtocol, Linkable≫;AdaptiveThresholdPPSProtocol|protocolSpecificParameters:any|nextCycle():void;degree():int; addNeighbor():boolean; clone():Object; onKill():void; contains():boolean; getNeighbor():Node]

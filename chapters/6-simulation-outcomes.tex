@@ -76,7 +76,7 @@ For the star graph the push-pull mechanism-based protocols seem to perform well 
 % \end{figure}
 
 
-\textbf{Push-Pull Sum Algorithm and Adaptive Threshold Push-Pull Sum Algorithm}: Both push-pull-based protocols exhibit steep MSE reductions early on, as seen in the sharp downward trends in the log-log plot. The PPS algorithm outperforms the ATPPS algorithm, as it reduces MSE faster and reaches lower MSE values sooner (as of round 45) before the graph plateaus. Figures \ref{fig:ppsStarModelFit} and \ref{fig:atppsStarModelFit} show the fitted curves for the MSE data of the PPS and ATPPS load balancing algorithms respectively. The best-fit model for the MSE data of the PPS load balancing algorithm for the rounds 10 to 45 follows the equation $MSE=29794.60*e^{-1.39*x}$. The rounds 10 to 45 show the steepest decay and for that reason been fitted to exponential regression model. The decay rate of -1.39 indicates a very fast error reduction in the network, especially if compared to the DAB load balancing algorithms ability to reduce the error for star graph. The ATPPS load balancing algorithms MSE data fits best with the exponential model following the equation $MSE_r=9329.40*e^{-1.05*r}$ between the rounds 18 to 60. 
+\textbf{Push-Pull Sum Algorithm and Adaptive Threshold Push-Pull Sum Algorithm}: Both push-pull-based protocols exhibit steep MSE reductions early on, as seen in the sharp downward trends in the log-log plot. The PPS algorithm outperforms the ATPPS algorithm, as it reduces MSE faster and reaches lower MSE values sooner (as of round 45) before the graph plateaus. Figures \ref{fig:ppsStarModelFit} and \ref{fig:atppsStarModelFit} show the fitted curves for the MSE data of the PPS and ATPPS load balancing algorithms respectively. The best-fit model for the MSE data of the PPS load balancing algorithm for the rounds 10 to 45 follows the equation $MSE=29794.60*e^{-1.39*x}$. The rounds 10 to 45 show the steepest decay and for that reason been fitted to exponential regression model. The decay rate of -1.39 indicates a very fast error reduction in the network, especially if compared to the DAB load balancing algorithms ability to reduce the error for star graph. The ATPPS load balancing algorithms MSE data fits best with the exponential model following the equation $MSE_r=9329.40*e^{-1.05*r}$ between the rounds 18 to 60. In star graphs, the central node dominates communication, and the load balancing heavily depends on that node. Threshold adjustments may not sufficiently impact performance under these conditions.
 
 Overall the scenario is similiar to the complete graph, where the DAB reduces the error exponential with a very slow rate, while the push-pull based algorithms perform a very fast error reduction. This behaviour is captured in the heat map of figure \ref{fig:stargraphslopes}. While the DAB load balancing algorithm reduces the error in average per region $-3.75 \pm 0.55$, the push-pull based algorithms exhibit a error reduction of -92 for the first 10 rounds. The slopes approach zero in the middle and end regions, implying almost negligible MSE reduction in later stages. This is due to the fact that the network already is balanced to a degree where the MSE will not improve significantly further for later rounds. Both algorithms converge early and maintain a near-steady state afterward. The DAB load balancing algorithms deterministic nature and lack of adaptability lead to slower convergence and less effective load balancing, as reflected in its consistently shallow slopes.
 
@@ -102,26 +102,129 @@ Overall the scenario is similiar to the complete graph, where the DAB reduces th
 % \end{figure}
 
 \section{Ring Graph}\label{sec:ringgraph}
-% \begin{figure}
+The DAB curve in figure \ref{fig:ringgraphMSEperRoundLogLog} shows the steepest decline in error in the first few rounds of the simulation. The slope of the first 10 rounds is -84 for the DAB curve compared to -82 for each PPS-based algorithm as depicted in figure \ref{fig:ringgraphslopes}. The near-overlap of PPS and ATPPS across the 100 rounds of simulation indicates that the adaptive mechanism provides limited additional benefit in a ring graph topology, where load balancing is already well-facilitated by regular communication patterns. In a ring topology, each node only has access to its two neighbors. The adaptive threshold mechanism relies on meaningful differences in load between nodes to trigger exchanges, but in a ring, local differences might not vary significantly enough to make the threshold mechanism advantageous for each neighborhood. In the classic PPS, every node communicates with its neighbors in every round. This constant exchange ensures rapid propagation of load updates. The adaptive threshold might reduce some of these exchanges, but in a ring graph, where the diameter is large, reducing communication might delay convergence rather than improve it. Thus, the threshold mechanism could counteract its own benefits. The DAB algorithm functions way better in this scenario, since it always interacts with the optimal partner to exchange loads. The randomness benefit vanishes for a network topology where each node only has two neighbors, and a deterministic approach actually performs better.
+
+The MSE data of each algorithms simulations were fitted to the polynomial regression model with degree of 4 each. The best-fit model for the DAB MSE data for the rounds 10 to 60 follow the equation: $MSE_r=1.72*10^{-05}-0.0023r+ 0.19r^{2}-5.99r^{3}+114.83r^{4}$ (figure \ref{fig:dabRingModelFit}). The intercept ($a_0$ term) is very close to zero, meaning the starting MSE value is almost entirely determined by higher-order terms. The small negative coefficient of the $a_1$-term indicates a slight initial linear decrease in MSE as rounds progress, contributing a modest downward slope. The positive quadratic term ($a_2$ term) suggests a curving trend. This term provides more flexibility to account for changes in the decay rate of the MSE early in the rounds. The cubic term ($a_3$ term) adds further curvature but with a decreasing influence with proceeding rounds. It could model an inflection point in the MSE trend. The large positive coefficient of the cubic term ($a-4$ term) reflects the steep decay behavior of MSE over a significant portion of the range. A similiar behaviour is shown for the PPS and ATPPS curves which are fitted for the model: $MSE_r= 2.99*10^{-05}-0.5*10^{-2}r + 0.32r^{2} -9.68r^{3} + 166.30r{4}$ (figure \ref{fig:ppsRingModelFit})for the PPS and the model: $3.04*10^{-05}-0.5*10^{-2}r + 0.32r^{2}-9.64r^{3}+161.86r^{5}$ (figure \ref{fig:atppsRingModelFit})for the ATPPS.
+
+% \begin{figure}[h]
 %     \centering
 %     \scalebox{0.5}{\includegraphics{figures/Simulation_outcomes/RingGraph/DAB_vs_PPS_RG_r100_n1024_averaged_loglog.png}}
 %     \caption{Ring Graph: mean squared error per rounds (log-log)}
-%     \label{fig:ringGraphLogLogMSEperRound}
+%     \label{fig:ringgraphMSEperRoundLogLog}
 % \end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingGraph/DAB/DAB_modelfitting_rounds_59_model_2.png}
+%     \caption{Polynomial Regression Fit: DAB}
+%     \label{fig:dabRingModelFit}
+% \end{figure}
+
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingGraph/PPS/PPS_modelfitting_rounds_59_model_2.png}
+%    \caption{Polynomial Regression Fit: PPS}
+%    \label{fig:ppsRingModelFit}
+%\end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingGraph/ATPPS/ATPPS_modelfitting_rounds_59_model_2.png}
+%     \caption{Polynomial Regression Fit: ATPPS}
+%     \label{fig:atppsRingModelFit}
+% \end{figure}
+
 % \begin{figure}
 %     \centering
-%     \scalebox{0.5}{\includegraphics{figures/Simulation_outcomes/RingGraph/DAB_vs_PPS_RG_r100_n1024_averaged_log.png}}
-%     \caption{Ring Graph: mean squared error per rounds (log-linear)}
-%     \label{fig:ringGraphLogMSEperRound}
+%     \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
+%     \caption{Ring Graph: heat map of slopes per region}
+%     \label{fig:ringgraphslopes}
 % \end{figure}
 
 \section{Torus Grid Graph}\label{sec:torusgridGraph}
-% \begin{figure}
+Figure \ref{fig:torusMSEperRoundLogLog} shows the MSE reduction over rounds on a Torus Grid Graph, plotted on a log-log scale. At the beginning all three algorithms start with similar MSE values around 1000. The DAB algorithms curve appears to have a slightly slower initial reduction compared to PPS algorithms curve and ATPPS in the beginning (rounds 1 to 7). The slope in this region is superior for the DAB algorithm with a value of -140 compared to -130 for the PPS based algorithms (figure \ref{fig:torusgraphslopes}). PPS's curve and ATPPS's curve maintain nearly identical performances during the middle phase so the rounds 8 to 40, reducing MSE at a similar rate, with a slope of -1 for the PPS curve and -0.83 for the ATPPS curve. DAB shows a noticeable improvement over both PPS and ATPPS, achieving lower MSE values consistently. This suggests that DAB adapts more efficiently to the graph's structure during the intermediate (rounds in the middle) rounds. DAB continues to reduce MSE more effectively than the PPS-based protocols in the end region (rounds 41 to 100). PPS and ATPPS exhibit convergence, but they lag behind the DAB algorithm in reaching minimal MSE. A torus grid has more structured connectivity compared to a star or ring graph, allowing better distribution of loads via localized interactions. DAB's deterministic approach benefits from leveraging this regularity, leading to its superior performance.The ATPPS algorithm introduced in this paper achieves a compromise solution in this scenario. It seems to perform better than the classic PPS approach judging from the simulation outcomes, especially in later rounds, where the adaptiveness condition prevents "redundant" load transfers from happening and prioritizing load transfers that reduce the error impactful.
+
+The uniform neighborhood structure of a torus ensures that DAB's deterministic decisions (e.g., always choosing the minimal neighbor) are consistently effective across the graph. The protocol doesn't suffer from random noise introduced by probabilistic neighbor choices, making it inherently well-suited to the topology. Both PPS and ATPPS protocols rely on randomly selecting a neighbor for load exchange. While this randomness is beneficial in irregular or dense graphs (e.g., star or complete graphs), it is less effective in structured topologies compared to the DAB like a torus. The PPS-based algorithms do not always target the most unbalanced areas. This means that load propagation can sometimes "stall" in certain regions, requiring more rounds to achieve global balance.
+
+The fitted polynomial curve of degree 5 matches the MSE data for DAB effectively, capturing the nonlinear dynamics during rounds 10 to 39 following the equation: $MSE_r=-1.35*10^{-6} + 1.89*10^{-4}r-0.01r^{2}+0.30r^{3}-4.6r^{4}+34.10r^{5}$. This suggests that in the early rounds (10 to 39), the MSE reduction follows a complex pattern due to the DAB's optimization mechanism, such as its focus on minimizing neighbors loads dynamically. The higher degree captures these dynamics with more precision than simpler models. In later rounds the performance of the DAB can still be captured by a polynomial curve with equation: $MSE_r=-6.01*10^{-06}+1.66*10^{-3}r-0.16r^{2}+6r^{3}$. The fitted polynomial curve of degree 4 fits the MSE data well in later rounds. By this stage, the load balancing has stabilized, and the reduction in MSE is more linear or gradual. A lower-degree polynomial suffices for rounds 40 to 100 since the dynamics are simpler compared to the earlier rounds. The curve behaviour for the PPS and ATPPS are similar to that of the DAB curve expressed for rounds 10 to 40 by the equations: $MSE_r=-5.54*10^{-06}+7.65*10^{-4}r-0.04r^{2}+1.16r^{3}-16.81r^{4}+112.86r^{5}$ for the PPS and: $MSE_r = -3.65 \times 10^{-6} + 5.16 \times 10^{-4}r - 0.03r^{2} + 0.83r^{3} - 12.52r^{4} + 88.16r^{5}$ for the ATPPS. The $r^{5}$ term ($88.16*r^{5}$) dominates the polynomial at higher rounds. This reflects the initial high variance (high MSE) at the start of the process when nodes have not yet balanced their loads effectively.As rounds progress, the lower-degree terms (e.g., $r^{4}$ and $r^{3}$) become more influential. These represent the gradual stabilization of the MSE as the load balances across the graph. The negative coefficients for $r^{4}$ ($-12.52r^{4}$) and lower powers ($-0.03r^{2}$) show the decline of MSE over time as the algorithm pushes load differences to zero. The values slightly differ for the other algorithms but the idea is the same, as the fitted models for each algorithm are structured the same. The equations that describe that are fitted to the MSE data for the rounds for the rounds 41 to 100 for the PPS is:$MSE_r = -1.15 \times 10^{-5} + 3.205\times 10^{-3}r - 0.33r^2 + 13.72r^3$ and for the ATPPS is: $MSE_r = -9.99 \times 10^{-6} + 2.8034\times 10^{-3}r - 0.28r^2 + 11.29r^3$. Here the structure is also similar, however described with less terms (degree 3).
+
+% \begin{figure}[h]
 %     \centering
 %     \scalebox{0.5}{\includegraphics{figures/Simulation_outcomes/TorusGridGraph/DAB_vs_PPS_TGG_r100_n1024_averaged_loglog.png}}
 %     \caption{Torus Grid Graph: mean squared error per rounds (log-log)}
-%     \label{fig:torusGraphLogLogMSEperRound}
+%     \label{fig:torusMSEperRoundLogLog}
 % \end{figure}
 
+% \begin{figure}[!ht]
+%     \centering
+%         \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/TorusGridGraph/DAB/DAB_modelfitting_rounds_38_model_2.png}}
+%     \hfil
+%         \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/TorusGridGraph/DAB/DAB_modelfitting_rounds_99_model_2.png}}
+%     \caption{Polynomial Regression Fit: DAB; Rounds 10-39 and 40-100}
+%         \label{fig:dabTorusModelFit}
+% \end{figure}
+
+% \begin{figure}[!ht]
+%     \centering
+%         \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/TorusGridGraph/PPS/PPS_modelfitting_rounds_38_model_2.png}}
+%     \hfil
+%         \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/TorusGridGraph/DAB/DAB_modelfitting_rounds_99_model_2.png}}
+%     \caption{Polynomial Regression Fit: PPS; Rounds 10-39 and 40-100}
+%         \label{fig:ppsTorusModelFit}
+% \end{figure}
+
+%\begin{figure}[!ht]
+%    \centering
+%        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/TorusGridGraph/ATPPS/ATPPS_modelfitting_rounds_38_model_2.png}}
+%    \hfil
+%        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/TorusGridGraph/ATPPS/ATPPS_modelfitting_rounds_99_model_2.png}}
+%    \caption{Polynomial Regression Fit: ATPPS; Rounds 10-39 and 40-100}
+%        \label{fig:atppstorusModelFit}
+%\end{figure}
+
+% \begin{figure}
+%     \centering
+%     \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/TorusGridGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
+%     \caption{Torus Grid Graph: heat map of slopes per region}
+%     \label{fig:torusgraphslopes}
+% \end{figure}
+
+
 \section{Ring of Cliques}\label{sec:ringofcliques}
+\begin{figure}[!ht]
+    \centering
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/DAB_vs_PPS_RoC_r100_n1024_averaged_log.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/DAB_vs_PPS_RoC_r100_n1024_averaged_loglog.png}}
+    \caption{Ring of Cliques: mean squared error per rounds (left: log-linear; right: log-log)}
+        \label{fig:atppsRingOfCliquesLog_LogLog}
+\end{figure}
+
+ \begin{figure}[H]
+     \centering
+     \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/DAB/DAB_modelfitting_rounds_99_model_2.png}
+     \caption{Polynomial Regression Fit: DAB}
+     \label{fig:dabRingOfCliquesModelFit}
+ \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/PPS/PPS_modelfitting_rounds_99_model_0.png}
+    \caption{Polynomial Regression Fit: PPS}
+    \label{fig:ppsRingOfCliquesModelFit}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/ATPPS/ATPPS_modelfitting_rounds_99_model_3.png}
+    \caption{Logarithmic Regression Fit: ATPPS}
+    \label{fig:atppsRingOfCliquesModelFit}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingOfCliques/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
+    \caption{Ring of Cliques: heat map of slopes per region}
+    \label{fig:ringOfCliquesslopes}
+\end{figure}
+
 \section{Lollipop Graph}\label{sec:lollipopgraph}

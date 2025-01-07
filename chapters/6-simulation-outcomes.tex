@@ -193,6 +193,7 @@ The fitted polynomial curve of degree 5 matches the MSE data for DAB effectively
 
 
 \section{Ring of Cliques}\label{sec:ringofcliques}
+\subsection{32x32 Ring of Cliques}\label{subsec:32_32ROC}
 In the early rounds, PPS and ATPPS exhibits the fastest MSE reduction showcased by a very steep downwards trend between rounds 1 and 5 in figure \ref{fig:atppsRingOfCliquesLog_LogLog} a). Both PPS-based approaches start with faster convergence rates compared to DAB. The initial steep downwards slope of -200 for each PPS-based algorithm as depicted in figure \ref{fig:ringOfCliquesslopes} within the first 5 rounds is due to the unbalanced state of each clique. The PPS-based approaches has shown to be outperforming the DAB algorithm for complete graphs. While the Cliques are still unbalanced the PPS-based algorithms achieve faster convergence. After the cliques are balanced round by round the DAB algorithm catches up especially between the rounds 6 to 40 where the slopes seem to be -48 compared to $\sim-2$ for the PPS-based algorithms.  Nodes within cliques tend to converge quickly internally due to their dense interconnections for the PPS-based algorithms. However, load balancing between cliques, especially when the nodes select for random neighbors is slower, creating bottlenecks for global convergence. Due to the determistic nature of the DAB, the bridging nodes choose nodes outside of their cliques, once the load is balanced within the clique, and spread the load to other cliques. The ATPPS algorithm achieves better results compared to the PPS, since it has a similar mechanism in this scenario like the DAB. In the Ring of Cliques, this mechanism prioritizes communication between cliques (where differences in loads are more significant) over redundant communication within cliques (where loads are already close to balanced). This helps speed up inter-clique convergence. And so it acts as a compromise solution between the PPS and the DAB again achieving results close to them of the DAB algorithm.
 
 The polynomial fit for the DAB algorithm is: $MSE_r=1.04\times 10^{-6}r^{4}-2.941\times 10^{-4}r^{3}+0.03r^{2}-1.66r+45.30$. Thus the Mean Squared Error (MSE) as a function of rounds is modeled by a fourth-degree polynomial. The PPS MSE data of rounds 20 to 100 is fitted to a linear regression model following the equation: $MSE_r=-0.05r+24.70$. The negative slope indicates a consistent reduction in MSE with each round in this region, but the value -0.05 is relatively small. This suggests that the PPS algorithm achieves slow and steady progress toward load balancing. The linear fit highlights that PPS achieves only gradual improvement in balancing the load in the Ring of Cliques topology. This is because:
@@ -203,39 +204,145 @@ $\log{(MSE_r)}=-7.59\log{(r)}+43.26$. By exponentiating this equation, the relat
 
 %\begin{figure}[!ht]
 %    \centering
-%        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/DAB_vs_PPS_RoC_r100_n1024_averaged_log.png}}
+%        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/32x32/DAB_vs_PPS_RoC_r100_n1024_averaged_log.png}}
 %    \hfil
-%        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/DAB_vs_PPS_RoC_r100_n1024_averaged_loglog.png}}
+%        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/32x32/DAB_vs_PPS_RoC_r100_n1024_averaged_loglog.png}}
 %    \caption{Ring of Cliques: mean squared error per rounds (left: log-linear; right: log-log)}
 %        \label{fig:atppsRingOfCliquesLog_LogLog}
 %\end{figure}
 
 %^ \begin{figure}[H]
 %^     \centering
-%^     \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/DAB/DAB_modelfitting_rounds_99_model_2.png}
+%^     \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/32x32/DAB/DAB_modelfitting_rounds_99_model_2.png}
 %^     \caption{Polynomial Regression Fit: DAB}
 %^     \label{fig:dabRingOfCliquesModelFit}
 %^ \end{figure}
 %^\begin{figure}[H]
 %^    \centering
-%^    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/PPS/PPS_modelfitting_rounds_99_model_0.png}
+%^    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/32x32/PPS/PPS_modelfitting_rounds_99_model_0.png}
 %^    \caption{Polynomial Regression Fit: PPS}
 %^    \label{fig:ppsRingOfCliquesModelFit}
 %^\end{figure}
 %^
 %^\begin{figure}[H]
 %^    \centering
-%^    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/ATPPS/ATPPS_modelfitting_rounds_99_model_3.png}
+%^    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/32x32/ATPPS/ATPPS_modelfitting_rounds_99_model_3.png}
 %^    \caption{Logarithmic Regression Fit: ATPPS}
 %^    \label{fig:atppsRingOfCliquesModelFit}
 %^\end{figure}
 %^
 %^\begin{figure}
 %^    \centering
-%^    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingOfCliques/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
+%^    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingOfCliques/32x32/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
 %^    \caption{Ring of Cliques: heat map of slopes per region}
 %^    \label{fig:ringOfCliquesslopes}
 %^\end{figure}
+
+In the following the Ring Of Cliques are newly organized. Experiments are conducted where the number of rings is increased from $2^{5}$ to $2^{7}$ in subsection \ref{subsec:128_8ROC} and thus the number of cliquesize of each ring is decreased to $2^{3}$. Subsection \ref{subsec:8_128ROC} covers the experiment where the cliquesize is increased and the number of rings is decreased in the same magnitude as discussed before.
+
+\subsection{128x8 Ring of Cliques}\label{subsec:128_8ROC}
+The clique size plays a crucial role for the efficacy of the DAB algorithm. The decreased clique size favors the DAB making it the load balancing algorithm to reduce the error in the network more rapidly than the PPS-based algorithms as seen in figure \ref{fig:128x8RingOfCliquesLog_LogLog}. All the load balancing algorithms show an rapid decrease of error in the network, indicated by the steep negative slopes as visualized in figure \ref{fig:128x8ringOfCliquesslopes}. The PPS-based algorithms show an decrease of -180, whereas the DAB shows a decrease of -190 in the Start region (rounds 1 to 5). After the very steep decrease in the Start region the load balancing algorithms decrease the error more moderately, where the DAB algorithm still has the steepest decrease of error of -5.2, followed by the ATPPS decreasing the error as low as -4.6, lastly the PPS follows with a slope of -3.6. The curve in this region is rather flat as seen in the log-log representation in figure \ref{fig:128x8RingOfCliquesLog_LogLog} a) The decrease effect diminishes as the error of the network is already relatively low, in the end region. The MSE values at the end of round of 100 show the magnitude of error reduction. The DAB scored the lowest MSE value 10.64, followed by the ATPPS achieving very good results to with a MSE value of 13.68. The PPS value achieved the highest MSE value of 22.33. \todo{One sentence about the values of 32 32 and the magnitude to see if this structure benefits any algoithm or nah}.
+
+All three load balancing algorithms were fitted against polynomials with degree 4. The equations are as follows: DAB $MSE_r=5.45\times 10 ^{-7}r^{4}-1.7\times 10^{-4}r^{3}+0.02r^{2}-1.33r+46.71$ PPS: $MSE_r=1.04\times 10 ^{-6}r^{4}-3.41\times 10^{-4}r^{3}+0.04r^{2}-2.73r+97.58$ and ATPPS: $MSE_r=9.54\times 10^{-7}r^{4}-2.93\times 10^{-4}r^{3}+0.03r^{2}-2.05r+67.02$.
+%\begin{figure}[!ht]
+%    \centering
+%        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/128x8/DAB_vs_PPS_RoC_r100_n1024_averaged_log.png}}
+%    \hfil
+%        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/128x8/DAB_vs_PPS_RoC_r100_n1024_averaged_loglog.png}}
+%    \caption{Ring of Cliques: mean squared error per rounds (left: log-linear; right: log-log)}
+%        \label{fig:128x8RingOfCliquesLog_LogLog}
+%\end{figure}
+%
+%\begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/128x8/DAB/DAB_modelfitting_rounds_99_model_2.png}
+%     \caption{Polynomial Regression Fit: DAB}
+%     \label{fig:128x8dabRingOfCliquesModelFit}
+%\end{figure}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/128x8/PPS/PPS_modelfitting_rounds_99_model_2.png}
+%    \caption{Polynomial Regression Fit: PPS}
+%    \label{fig:128x8ppsRingOfCliquesModelFit}
+%\end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/128x8/ATPPS/ATPPS_modelfitting_rounds_99_model_2.png}
+%    \caption{Polynomial Regression Fit: PPS}
+%    \label{fig:128x8atppsRingOfCliquesModelFit}
+%\end{figure}
+%
+%\begin{figure}
+%    \centering
+%    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingOfCliques/128x8/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
+%    \caption{128x8 Ring of Cliques: heat map of slopes per region}
+%    \label{fig:128x8ringOfCliquesslopes}
+%\end{figure}
+
+\subsection{8x128 Ring of Cliques}\label{subsec:8_128ROC}
+Increasing the clique size and reducing the number of cliques favors the push-pull based algorithms. The PPS-based algorithms show a very steep decrease of error in the first 5 rounds of the simulation. The error is reduced by -200 on average in this region for each PPS based algorithm. The DAB data shows a more moderate decrease by -36 in this region. The error reduction reduces over the next regions, since the error of the network is already very low and the network is in a state of good balance showing a MSE in this region of around $\sim 30$ for the PPS based algorithms. After the first region the state of the network managed by the DAB is still very unbalanced and thus the balance potential is higher. This is shown by the slopes in the Middle regions. The PPS-based algorithms reduce the error by $\sim -2$ while the DAB shows a still very high value of $\sim -30$. The reason behind this behaviour is due to the impact of the clique sizes. The PPS-based algorithms achieve good performances in reducing error in this scenario compared to the DAB which struggles in the context of dense graphs as it seems. The steep decrease and the low MSE values after rounds 5 and 10 stems from the fast error reducing in the cliques while still having the change to spread loads from clique to clique through the briding nodes. Compared to the experiment with 128 cliques with size 8 and the in \ref{subsec:128_8ROC} the error after rounds 100 drops to lower values. After rounds 100 the DAB achieves a MSE value of 5.18 compared to 5.95 for the PPS and 4.56 for the ATPPS. especially in the last region (rounds 12 to 100) the DAB catches up to the PPS-based algorithms. However, the PPS based algorithms achieved a broadly balanaced state of the network after round 10 dropping the error to lower to a MSE value of 7. In the following rounds the inter clique error reduction follows. Here the PPS algorithm has difficulties, since the algorithms orders the nodes of the network to choose their transfer partner by random. The ATPPS has an advantage compared to the PPS here since it prioritizes the bridging nodes once its neighbors within the clique are already balanced. This elaborates why the PPS curve is mostly stagnating, while the ATPPS curve shows a downwards trend. The stagnating trend between rounds 20 to 100 is expressed by the linear mode fit in \ref{fig:8x128ppsRingOfCliquesModelFit}. The best-fit model follows the equation. $MSE_r=-0.0015x+6.05$. The PPS curve shows a complexer relation between the MSE reduction over the rounds, namely a polynomial of degree 2 following the equation $MSE_r=6.07\times 10^{-5}r^{2}-0.02r+6.39$. The DAB does not follow a single power relation ship in this region. Between the rounds 15 to 50 the error reduction can be expressed by a third degree polynomial $MSE_r=-3.33\times 10^{-3}r^{3}+0.63r^{2}-40.23r+872.75$ while in later rounds the power relation is a bit complexer, expressed by a fourth degree polynomial following the equation $MSE_r=2.96 \times 10^{-6}r^{4}-9.97\times 10^{-3}r^{3}+0.13r^{2}-7.16r+161.73$.
+
+Snippets of the simulation outcomes after the 100th rounds of each load balancing algorithm verify that within the cliques the load is balanced, however the inter clique connection seems to be pending. Listing \ref{lst:exampleROCOutcomes} shows two connected cliques of the ATPPS simulation outcomes in round 100. While the first clique converged to a value of $\sim 46.35$ the second clique averaged to $\sim 47.90$. The ground truth of the first clique is $45.89$ and the ground truth of the second clique is $48.13$. So the simulation outcomes and the ground truths aligh, however the averages do not alighn with the ground truth of the Ring of Cliques (which is $49.09$) itself. The PPS simulation outcomes show a similiar behavior.
+\begin{figure}[!ht]
+    \centering
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/8x128/DAB_vs_PPS_RoC_r100_n1024_averaged_log.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/8x128/DAB_vs_PPS_RoC_r100_n1024_averaged_loglog.png}}
+    \caption{Ring of Cliques: mean squared error per rounds (left: log-linear; right: log-log)}
+        \label{fig:128x8RingOfCliquesLog_LogLog}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/8x128/DAB/DAB_modelfitting_rounds_49_model_2.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/8x128/DAB/DAB_modelfitting_rounds_99_model_2.png}}
+    \caption{Polynomial Regression Fitting: left: Rounds 20 to 50; right: Rounds 55 to 100}
+        \label{fig:8x128dabRingOfCliquesModelFit}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/8x128/PPS/PPS_modelfitting_rounds_99_model_0.png}
+    \caption{Polynomial Regression Fit: PPS}
+    \label{fig:8x128ppsRingOfCliquesModelFit}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/RingOfCliques/8x128/ATPPS/ATPPS_modelfitting_rounds_99_model_2.png}
+    \caption{Polynomial Regression Fit: PPS}
+    \label{fig:8x128atppsRingOfCliquesModelFit}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingOfCliques/8x128/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
+    \caption{8x128 Ring of Cliques: heat map of slopes per region}
+    \label{fig:128x8ringOfCliquesslopes}
+\end{figure}
+
+\begin{lstlisting}[caption=Snippet of Simulation Outcomes ATPPS: exp2, captionpos=b, label=lst:exampleROCOutcomes]
+# First Clique starts here
+ID 0	 sum 23.703116631927735	 weight 0.5112902995975737	 Average 46.359410007551446
+ID 1	 sum 39.52476483621201	 weight 0.852801600538612	 Average 46.34696371494727
+ID 2	 sum 8.793798989811481	 weight 0.18958634077240344	 Average 46.38413798158778
+...
+ID 125	 sum 94.3005473042508	 weight 2.0354736681273184	 Average 46.32855181615266
+ID 126	 sum 145.10578299145917	 weight 3.1321941681390815	 Average 46.32719914604474
+ID 127	 sum 149.43516229432458	 weight 3.222997634840688	 Average 46.365272092950555
+# First Cliques ends here
+
+# Second Clique starts here
+ID 128	 sum 198.97437468622982	 weight 4.149869252421544	 Average 47.947143050380134
+ID 129	 sum 168.24642313171216	 weight 3.5107838866374186	 Average 47.92275131832632
+ID 130	 sum 35.6266112221637	 weight 0.7449330697151406	 Average 47.82525124812511
+...
+ID 253	 sum 63.87360335784297	 weight 1.3317373880292274	 Average 47.962611797185005
+ID 254	 sum 15.173810743452982	 weight 0.31637895519911763	 Average 47.96087253623784
+ID 255	 sum 19.982619800226413	 weight 0.4175626540105257	 Average 47.85538076334456
+# Second Cliques ends here
+\end{lstlisting}
 
 \section{Lollipop Graph}\label{sec:lollipopgraph}
 \subsection{(512, 512) Lollipop Graph}

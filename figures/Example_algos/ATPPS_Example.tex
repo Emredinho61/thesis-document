@@ -46,10 +46,10 @@
     \draw (B2) -- (D2);
     \draw (C2) -- (D2);
 
-    \draw[->] (A1) to[out=30, in=150] node[above] {$(1.5, 0.5)$} (B1);
-    \draw[->] (B1) to[out=210, in=-30] node[above] {$(7.5, 0.5)$} (A1);
-    \draw[->] (C1) to[out=120, in=240] node[right] {$31, 0.5)$} (A1);
-    \draw[->] (D1) to[out=120, in=-30] node[right] {$22, 0.5)$} (A1);
+    \draw[->] (A1) to[out=30, in=150] node[above, scale=0.8] {$(1.5, 0.5)$} (B1);
+    \draw[->] (B1) to[out=210, in=-30] node[above, scale=0.8] {$(7.5, 0.5)$} (A1);
+    \draw[->] (C1) to[out=120, in=240] node[right, scale=0.8] {$(31, 0.5)$} (A1);
+    \draw[->] (D1) to[out=120, in=-30] node[right, scale=0.8] {$(22, 0.5)$} (A1);
 
 
     
@@ -58,10 +58,10 @@
     
 
     
-    \draw[dashed, ->] (A2) to[out=30, in=150] node[below] {$(0.375, 0.125)$} (B2);
-     \draw[dashed, ->] (A2) to[out=240, in=120] node[left] {$(0.375, 0.125)$} (C2);
-     \draw[dashed, ->] (A2) to[out=-30, in=120] node[right] {$(0.375,0.125)$} (D2);
-      \draw[dashed, ->] (B2) to[out=210, in=-30] node[above] {$(3.75,0.25)$} (A2);
+    \draw[dashed, ->] (A2) to[out=30, in=150] node[below, scale=0.8] {$(0.375, 0.125)$} (B2);
+     \draw[dashed, ->] (A2) to[out=240, in=120] node[left, scale=0.8] {$(0.375, 0.125)$} (C2);
+     \draw[dashed, ->] (A2) to[out=-30, in=120] node[right, scale=0.8] {$(0.375,0.125)$} (D2);
+      \draw[dashed, ->] (B2) to[out=210, in=-30] node[above, scale=0.8] {$(3.75,0.25)$} (A2);
 
     % Legend in the middle below the graphs
     \begin{scope}[shift={(3,-3)}]
@@ -73,9 +73,9 @@
         \draw[->, dashed, line width=1pt] (-4,-2) -- (-3,-2) node[right] {Pull};
         
         % Load notation
-        \node at (4.7,0) {$(s_{x,r}, w_{x,r})$ : sum and weight values};
-        \node at (4.6,-1) {$RN_{x,r}$ : possible random neighbors};
-        \node at (5,-2) {$R_{x,r}$ : Set of nodes calling x at round r};
+        \node at (5,0) {$(s_{i,r}, w_{i,r})$ : sum and weight values};
+        \node at (5,-1) {$RN_{i,r}$ : possible random neighbors};
+        \node at (5.3,-2) {$R_{i,r}$ : Set of nodes calling i at round r};
     \end{scope}
 
 \end{tikzpicture}

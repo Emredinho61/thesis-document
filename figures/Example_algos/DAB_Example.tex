@@ -36,10 +36,10 @@
     \draw (B2) -- (D2);
     \draw (C2) -- (D2);
 
-    \draw[->] (C1) to[out=120, in=240] node[left] {$29.5$} (A1);
-    \draw[dashed, ->] (C1) to[out=60, in=300] node[right] {$29.5$} (A1);
-    \draw[dashed, ->] (B1) to[out=210, in=330] node[above] {$6$} (A1);
-    \draw[dashed, ->] (D1) to[out=120, in=330] node[right] {$20.5$} (A1);
+    \draw[->] (C1) to[out=120, in=240] node[left, scale=0.8] {$29.5$} (A1);
+    \draw[dashed, ->] (C1) to[out=60, in=300] node[right, scale=0.8] {$29.5$} (A1);
+    \draw[dashed, ->] (B1) to[out=210, in=330] node[above, scale=0.8] {$6$} (A1);
+    \draw[dashed, ->] (D1) to[out=120, in=330] node[right, scale=0.8] {$20.5$} (A1);
 
     % Legend in the middle below the graphs
     \begin{scope}[shift={(3,-2)}]
@@ -51,8 +51,8 @@
         \draw[->, dashed, line width=1pt] (-2,-2) -- (-1,-2) node[right] {proposal};
         
         % Load notation
-        \node at (4,0) {$l_{node}$ : load of node};
-        \node at (5,-1) {$t_{x,y}$ : transfered load from x to y};
+        \node at (4,0) {$l_{i}$ : load of node i};
+        \node at (5,-1) {$t_{i,j}$ : transfered load from i to j};
     \end{scope}
 
 \end{tikzpicture}

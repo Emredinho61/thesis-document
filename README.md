@@ -10,9 +10,9 @@ The findings suggest that the proposed modifications to the Push-Pull Sum algori
 
 \[1\]: S. Nugroho, A. Weinmann, and C. Schindelhauer, Adding Pull to Push Sum for Approximate Data Aggregation. Springer, 2023.
 
-\[2\]:D. Kempe, A. Dobra, and J. Gehrke, “Gossip-based computation of aggregate information,” in 44th Annual IEEE Symposium on Foundations of Computer Science, 2003. Proceedings., pp. 482–491, 2003.
+\[2\]: D. Kempe, A. Dobra, and J. Gehrke, “Gossip-based computation of aggregate information,” in 44th Annual IEEE Symposium on Foundations of Computer Science, 2003. Proceedings., pp. 482–491, 2003.
 
-\[3\]:Y. Dinitz, S. Dolev, and M. Kumar, “Local deal-agreement algorithms for load balancing in dynamic general graphs,” Theory of Computing Systems, vol. 67, pp. 348–382, Apr 2023.
+\[3\]: Y. Dinitz, S. Dolev, and M. Kumar, “Local deal-agreement algorithms for load balancing in dynamic general graphs,” Theory of Computing Systems, vol. 67, pp. 348–382, Apr 2023.
 
 ## Structure
 1. Introduction

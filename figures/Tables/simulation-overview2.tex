@@ -1,0 +1,31 @@
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+\begin{table}[]
+\begin{adjustbox}{
+  addcode={\begin{minipage}{\width}
+           \caption{Simulation overview per topology: fitted model, slopes per region, final MSE} \label{table:overviewsims}
+}
+          {\captionsetup{font=footnotesize}
+           \caption*{}
+           \end{minipage}},
+  rotate=90}
+\begin{tabular}{|p{0.8cm}|p{1cm}|p{10cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1cm}|p{1cm}|}\hline
+\multicolumn{2}{|l|}{\textbf{Topology}}                      & \textbf{Fitted Model} & \textbf{Slope Region 1} & \textbf{Slope Region 2} & \textbf{Slope Region 3} & \textbf{Slope General} & \textbf{final MSE}  \\ \hline
+\multicolumn{1}{|l|}{\multirow{3}{*}{$L_{512, 512}$}} &  &  & \textbf{rounds 1-7}:& \textbf{rounds 8-50}: & \textbf{rounds 51-100}:  & & \\ \cline{2-8}
+\multicolumn{1}{|c|}{} & DAB & \textbf{rounds 20-100}: $MSE_r=-5.89\times10^{-5}r^{3}+0.03r^{2}-5.68r+459.42$ & -67& -4.5 &-2.6 & -7.3  & 108.90 \\ \cline{2-8} 
+\multicolumn{1}{|l|}{} & PPS & \textbf{rounds 20-100}: $MSE_r=8.44\times 10^{-7}r^{4}-2.52\times 10^{-4}r^{3}-0.03r^{2}-1.64r+56.68$ & -130 & -0.9 & -0.12 & -8.3 & 14.71 \\ \cline{2-8} 
+\multicolumn{1}{|l|}{} & ATPPS & \textbf{rounds 20-100}: $MSE_r=8.69 \times 10^{-7}r^{4}-2.56 \times 10^{-4}r^{3}+0.03r^{2}-1.62r+54.48$ & -130 & -0.87 & -0.12 & -8.3  &  13.82\\ \cline{2-8}
+\hline
+\multicolumn{1}{|l|}{\multirow{3}{*}{$L_{128,896}$}} &  &  & \textbf{rounds 1-7}:& \textbf{rounds 8-50}: & \textbf{rounds 51-100}:  & & \\ \cline{2-8}
+\multicolumn{1}{|l|}{} & DAB & \textbf{rounds 20-100}: $MSE_r=3.46\times 10^{-6}r^{4}-1.12\times 10^{-3}r^{3}+0.14r^{2}-7.69r+190.78$ & -110& -2.8 &-0.25 & -8.2  & 17.47 \\ \cline{2-8} 
+\multicolumn{1}{|l|}{} & PPS & \textbf{rounds 20-100}:$MSE_r=-3.72\times 10^{-8}r^{5}+1.31\times 10^{-5}r^{4}-1.85\times 10^{-3}r^{3}+0.13r^{2}-4.96r+84.91$ & -120 & -1.5 & $-7.6 \times 10^{-2}$ & -8.4 & 3.31 \\ \cline{2-8} 
+\multicolumn{1}{|l|}{} & ATPPS & \textbf{rounds 20-100}: $MSE_r=1.59\times 10^{-6}r^{4}-4.74\times 10^{-4}r^{3}+0.054r^{2}-2.94r+70.59$ & -120 & -1.6 & -0.13 & -8.4 & 3.41 \\ \cline{2-8}
+\hline
+\multicolumn{1}{|l|}{\multirow{3}{*}{$L_{896,128}$}} &  &  & \textbf{rounds 1-7}:& \textbf{rounds 8-50}: & \textbf{rounds 51-100}:  & & \\ \cline{2-8}
+\multicolumn{1}{|c|}{} & DAB & \textbf{rounds 20-100}: $MSE_r=-1.936\times 10^{-4}r^{3}+0.05r^{2}-5.33r+745.95$ & -20& -2.9 &-0.86 & -2.9  & 542.09 \\ \cline{2-8} 
+\multicolumn{1}{|l|}{} & PPS & \textbf{rounds 20-100}:$MSE_r=2.00\times 10^{-7}r^{4}-6.01\times 10^{-5}r^{3}+6.95\times 10^{-3}r^{2}-0.39r+13.44$ & -140 & -0.23 & $-2.7 \times 10^{-2}$ & -8.4 & 3.59 \\ \cline{2-8} 
+\multicolumn{1}{|l|}{} & ATPPS & \textbf{rounds 20-100}: $MSE_r=2.28\times 10^{-7}r^{4}-6.77\times 10^{-5}r^{3}+7.68\times 10^{-3}r^{2}-0.42r+13.62$ & -140 & -0.23 & $-2.7 \times 10^{-2}$ & -8.4 & 3.27\\ \cline{2-8}
+\hline 
+\end{tabular}
+\end{adjustbox}
+\end{table}

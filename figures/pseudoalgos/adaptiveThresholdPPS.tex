@@ -5,7 +5,7 @@
     \State $\theta \leftarrow k * \sqrt{MSE_{r-1}}$ 
     \EndProcedure
     \Procedure{CheckTresholdRequestData}{}
-    \State $RN_{u,r} \leftarrow$ choose $\lceil \log_{2}{(|neighborhood(u)|)} \rceil$ random neighbor
+    \State $RN_{u,r} \leftarrow$ choose $\lceil \log_{2}{(|neighbourhood(u)|)} \rceil$ random neighbor
     \For{every node $v_{i} \in RN$}
     \State $\Delta_{u, v_{i}} \leftarrow |(load(u) - load(v_{i}))|$
     \If{$\Delta_{u,v} > \theta$}

@@ -7,7 +7,7 @@ When analyzing load balancing algorithms, the stability and efficiency of the al
 
 \textbf{ATPPS - Adaptive Threshold Push-Pull Sum Algorithm (adaptive PPS)}
 
-The simulation outcomes are presented in log-log or log-linear graphs (logs for the MSE data are base 10), since the MSE varies significantly over the 100 simulation rounds. Each simulation outcome includes an analysis of the slopes for three regions of the x-axis (simulation rounds) and the overall slope computed across all 100 rounds. The MSE data over time is modeled using linear regression, polynomial regression, exponential regression, or logarithmic regression, depending on the best-fitting model.
+The simulation outcomes are presented in log-log or log-linear graphs (logs for the MSE data are base 10), since the MSE varies significantly over the 100 simulation rounds. Each simulation outcome includes an analysis of the slopes for three regions of the x-axis (simulation rounds) and the overall slope computed across all 100 rounds. The slopes are computed in either the log-log representation or the log-linear representation. The log-log representation helps analyze power-law relationships where relative changes matter more than absolute differences. A slope of $b$ means that a $1\%$ increase in $r$ leads to a $b\%$ increase in MSE. When dealing with exponential trends, where absolute changes in $r$ lead to multiplicative changes in MSE. A slope of $b$ means that each unit increase in $r$ scales MSE by a factor of $e^{b}$. The MSE data over time is modeled using linear regression, polynomial regression, exponential regression, or logarithmic regression, depending on the best-fitting model.
 
 \textbf{Linear Regression}: Linear regression models the relationship between MSE and simulation rounds as 
 \begin{align}
@@ -45,9 +45,9 @@ where $a$ is the initial MSE when $\log{(r)}=0$ and $b$ is the rate of reduction
         \label{fig:completegraphMSEperRoundLogLog}
 \end{figure}
 
-Figure \ref{fig:completegraphMSEperRoundLogLog} presents the MSE reduction per round for the three load balancing algorithms simulated on the Complete graph on a log-log graph. The DAB curve (black curve) shows a linear trend and a gentle decrease of the MSE over the 100 rounds. The DAB performs poorly since it uses a fixed, deterministic load redistribution rule for its nodes, where each node selects the minimally loaded neighbor and proposes a load transfer. In a Complete graph where each node is interconnected, the same few nodes that hold the load of amount $L_{min}$ are the nodes that are receiving all the proposals. Since each minimal neighbor only accepts one proposal per round, the number of load transfers is heavily limited, resulting in slow MSE reduction. The PPS and ATPPS algorithms leverage the high connectivity of the network more effectively, due to their randomized nature. The PPS curve (red curve) exhibits a steady decrease in MSE, therefore showing efficient MSE reduction over time. Since all nodes are equally connected, no structural constraints slow down the process of pushing and pulling loads from neighbors. However, PPS does not distinguish between nodes that are highly imbalanced and those that are nearly balanced, leading to unnecessary load transfers in later rounds, which slows convergence. The ATPPS algorithm (green curve) achieves even faster MSE reduction than PPS. As the system nears equilibrium, ATPPS reduces redundant exchanges. The stagnation at around $1.8\times 10^{19}$ ($2^{64}$) in the simulation is due to the limitations of Java's double precision, which cannot represent all integers exactly beyond a threshold. As a result, small increments become too insignificant to alter the value, causing apparent stagnation. In summary, DAB underperforms due to limitations on the amount of load transfers; PPS improves upon this but lacks adaptive control, while ATPPS optimally balances load while avoiding unnecessary exchanges, making it the most effective approach in this setting.
+Figure \ref{fig:completegraphMSEperRoundLogLog} b) presents the MSE reduction per round for the three load balancing algorithms simulated on the Complete graph on a log-linear graph. Figure \ref{fig:completegraphMSEperRoundLogLog} b) shows the log-log graph of the same. The DAB curve (black curve) shows a linear trend and a gentle decrease of the MSE over the 100 rounds. The DAB performs poorly since it uses a fixed, deterministic load redistribution rule for its nodes, where each node selects the minimally loaded neighbor and proposes a load transfer. In a Complete graph where each node is interconnected, the same few nodes that hold the load of amount $L_{min}$ are the nodes that are receiving all the proposals. Since each minimal neighbor only accepts one proposal per round, the number of load transfers is heavily limited, resulting in slow MSE reduction. The PPS and ATPPS algorithms leverage the high connectivity of the network more effectively, due to their randomized nature. The PPS curve (red curve) exhibits a steady decrease in MSE, therefore showing efficient MSE reduction over time. Since all nodes are equally connected, no structural constraints slow down the process of pushing and pulling loads from neighbors. However, PPS does not distinguish between nodes that are highly imbalanced and those that are nearly balanced, leading to unnecessary load transfers in later rounds, which slows convergence. The ATPPS algorithm (green curve) achieves even faster MSE reduction than PPS. As the system nears equilibrium, ATPPS reduces redundant exchanges. The stagnation at around $1.8\times 10^{19}$ ($2^{64}$) in the simulation is due to the limitations of Java's double precision, which cannot represent all integers exactly beyond a threshold. As a result, small increments become too insignificant to alter the value, causing apparent stagnation. In summary, DAB underperforms due to limitations on the amount of load transfers; PPS improves upon this but lacks adaptive control, while ATPPS optimally balances load while avoiding unnecessary exchanges, making it the most effective approach in this setting.
 
-Figure \ref{fig:dabCompleteModelFit} shows the exponential regression fit for the MSE data when the DAB algorithm as a load balancing algorithm is applied to the network. Even though the curve might not suggest an exponential decay, the MSE data fits with the exponential regression model following the equation
+Figure \ref{fig:dabCompleteModelFit} a)shows the linear regression fit for the MSE data of the DAB algorithm. The data aligns well with the model, but the exponential regression fit suits better in this case. Figure \ref{fig:dabCompleteModelFit} b) shows the exponential regression fit for the MSE data when the DAB algorithm as a load balancing algorithm is applied to the network. Even though the curve might not suggest an exponential decay, the MSE data fits with the exponential regression model following the equation
 \begin{align}
     MSE_r=844.63*e^{-0.01*r}.    
 \end{align}
@@ -63,11 +63,13 @@ A steep error reduction is indicated by the decay rate of -1.06. As the PPS algo
 
 Figure \ref{fig:completegrapslopes} visualizes a heat map of the slopes (rates of change) for the three load balancing algorithms across different regions of the graph. The values reflect how steeply the MSE decreases over rounds. PPS and ATPPS have steep negative slopes in the start region, rounds 1-10 with a value of -92, indicating rapid initial improvement. However, their slopes in the middle (rounds 11-65) and end regions (rounds 66-100) approach zero, suggesting a plateau in performance. DAB has shallower negative slopes overall, reflecting a more gradual and consistent error reduction across all regions. The general slopes (rounds 1-100) for PPS and ATPPS (-8.4) are much steeper than DAB (-4.4), suggesting that PPS and ATPPS converge faster on average. The MSE is reduced significantly by the PPS and ATPPS. The initial MSE value of $832$ is reduced to $1.72 \times 10^{-28}$ for the PPS and $5.63 \times 10^{-28}$ for the ATPPS, while the DAB reduced the error to nearly half of the initial value, achieving a value of $436.84$.
 
-\begin{figure}[]
+\begin{figure}[!ht]
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/CompleteGraph/DAB/DAB_modelfitting_rounds_99_model_1.png}}
-    \caption{Complete graph - exponential regression fit: DAB}
-    \label{fig:dabCompleteModelFit}
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/CompleteGraph/DAB/DAB_modelfitting_rounds_99_model_0.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/CompleteGraph/DAB/DAB_modelfitting_rounds_99_model_1.png}}
+    \caption{Complete graph - linear and exponential regression}
+        \label{fig:dabCompleteModelFit}
 \end{figure}
 
 \begin{figure}[]
@@ -84,21 +86,23 @@ Figure \ref{fig:completegrapslopes} visualizes a heat map of the slopes (rates o
     \label{fig:atppsCompleteModelFit}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!ht]
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/CompleteGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
-    \caption{Complete graph: heat map of slopes per region}
-    \label{fig:completegrapslopes}
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/CompleteGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_lin.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/CompleteGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \caption{Complete graph: heat map of slopes per region - log-linear and log-log}
+        \label{fig:completegrapslopes}
 \end{figure}
 
 \section{Star Graph}\label{sec:stargraph}
-The behavior of the curves in figure \ref{fig:stargraphMSEperRoundLogLog} is similar to those for the Complete graph, with the difference that the PPS curve falls more steeply than the ATPPS curve. Again, DAB shows a much slower MSE reduction compared to PPS and ATPPS, as indicated by the flatter slope of its curve. It converges minimally, with MSE remaining nearly constant over rounds after an initial reduction. This indicates that DAB is less efficient in balancing load in a Star graph, likely due to its deterministic nature and lack of dynamic adaptability. In the Star graph, all the leaves have the central node as a partner, meaning each leaf node selects the same central node to propose load transfers. When the central node has a higher load than the leaf requesting a transfer, no load transfer occurs between these two nodes, creating a bottleneck. Both PPS and ATPPS exhibit steep MSE reductions early on, as seen in the sharp downward trends in the log-log plot. The PPS algorithm balances load more efficiently than the ATPPS algorithm since it reduces MSE faster and reaches lower MSE values sooner (as of round 45). Again, the PPS and ATPPS curves start to plateau, as a result of the precision of double. The Push-Pull Sum based algorithms draw an advantage from the Star graph, as the redistribution happens through the central node, which is chosen by every leaf node as a push destination. Following that, the central node redistributes parts of the load to the leaf nodes in magnitude of $\frac{\frac{s_i,r}{2}}{N-1}$.
+The behavior of the curves in figure \ref{fig:stargraphMSEperRoundLogLog} is similar to those for the Complete graph, with the difference that the PPS curve falls more steeply than the ATPPS curve. Figure \ref{fig:stargraphMSEperRoundLogLog} a) shows the log-linear representation of the MSE data, while figure \ref{fig:stargraphMSEperRoundLogLog} b) shows the log-log representation. Again, DAB shows a much slower MSE reduction compared to PPS and ATPPS, as indicated by the flatter slope of its curve. It converges minimally, with MSE remaining nearly constant over rounds after an initial reduction. This indicates that DAB is less efficient in balancing load in a Star graph, likely due to its deterministic nature and lack of dynamic adaptability. In the Star graph, all the leaves have the central node as a partner, meaning each leaf node selects the same central node to propose load transfers. When the central node has a higher load than the leaf requesting a transfer, no load transfer occurs between these two nodes, creating a bottleneck. Both PPS and ATPPS exhibit steep MSE reductions early on, as seen in the sharp downward trends in the log-log plot. The PPS algorithm balances load more efficiently than the ATPPS algorithm since it reduces MSE faster and reaches lower MSE values sooner (as of round 45). Again, the PPS and ATPPS curves start to plateau, as a result of the precision of double. The Push-Pull Sum based algorithms draw an advantage from the Star graph, as the redistribution happens through the central node, which is chosen by every leaf node as a push destination. Following that, the central node redistributes parts of the load to the leaf nodes in magnitude of $\frac{\frac{s_i,r}{2}}{N-1}$.
 
-As seen in figure \ref{fig:dabStarModelFit} the MSE data for the DAB-balanced network aligns nearly perfectly with the fitted curve of the exponential regression model given by the equation
+As seen in figure \ref{fig:dabStarModelFit} b) the MSE data for the DAB-balanced network aligns nearly perfectly with the fitted curve of the exponential regression model given by the equation
 \begin{align}
     MSE_r=840.42*e^{-0.01*r}    
 \end{align}
-for the rounds 1 to 100, even though the decay rate of -0.01 indicates a very slow reduction in error. From round to round, the improvement in the network remains minimal. This highlights the inability of the DAB to balance the network within 100 rounds to a satisfactory level. Figures \ref{fig:ppsStarModelFit} and \ref{fig:atppsStarModelFit} show the fitted curves for the MSE data of the PPS and ATPPS algorithms, respectively. The best-fit model for the MSE data of the PPS load balancing algorithm between rounds 10 to 45 follows the equation
+for the rounds 1 to 100, even though the decay rate of -0.01 indicates a very slow reduction in error. Since a linear decrease is suspected, I also fitted the MSE data to the linear regression model as presented in \ref{fig:dabStarModelFit} a). However, the exponential regression model aligns better with the DAB MSE data. From round to round, the improvement in the network remains minimal. This highlights the inability of the DAB to balance the network within 100 rounds to a satisfactory level. Figures \ref{fig:ppsStarModelFit} and \ref{fig:atppsStarModelFit} show the fitted curves for the MSE data of the PPS and ATPPS algorithms, respectively. The best-fit model for the MSE data of the PPS load balancing algorithm between rounds 10 to 45 follows the equation
 \begin{align}
     MSE_r=29794.60*e^{-1.39*r}.    
 \end{align}
@@ -119,12 +123,15 @@ Overall, the situation is similar to the Complete graph, with the Push-Pull Sum-
         \label{fig:stargraphMSEperRoundLogLog}
 \end{figure}
 
-\begin{figure}[]
+\begin{figure}[!ht]
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/StarGraph/DAB/DAB_modelfitting_rounds_99_model_1.png}}
-    \caption{Star graph - exponential regression fit: DAB}
-    \label{fig:dabStarModelFit}
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/StarGraph/DAB/DAB_modelfitting_rounds_99_model_0.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/StarGraph/DAB/DAB_modelfitting_rounds_99_model_1.png}}
+    \caption{Star graph - linear and exponential regression}
+        \label{fig:dabStarModelFit}
 \end{figure}
+
 \begin{figure}[]
     \centering
     \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/StarGraph/PPS/PPS_modelfitting_rounds_44_model_1.png}}
@@ -137,11 +144,14 @@ Overall, the situation is similar to the Complete graph, with the Push-Pull Sum-
     \caption{Star graph - exponential regression fit: ATPPS}
     \label{fig:atppsStarModelFit}
 \end{figure}
-\begin{figure}
+
+\begin{figure}[!ht]
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/StarGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
-    \caption{Star graph: heat map of slopes per region}
-    \label{fig:stargraphslopes}
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/StarGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_linear.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/StarGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \caption{Star graph: heat map of slopes per region - log-linear and log-log}
+        \label{fig:stargraphslopes}
 \end{figure}
 
 \section{Ring Graph}\label{sec:ringgraph}
@@ -187,8 +197,8 @@ for the ATPPS curve as depicted in figure \ref{fig:atppsRingModelFit}.
 \end{figure}
 \begin{figure}
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
-    \caption{Ring graph: heat map of slopes per region}
+    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \caption{Ring graph: heat map of slopes per region - log-log}
     \label{fig:ringgraphslopes}
 \end{figure}
 
@@ -255,8 +265,8 @@ for the ATPPS (figure \ref{fig:atppstorusModelFit} a)). The equations that descr
 \end{figure}
  \begin{figure}
      \centering
-     \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/TorusGridGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
-     \caption{Torus Grid: heat map of slopes per region}
+     \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/TorusGridGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+     \caption{Torus Grid: heat map of slopes per region - log-log}
      \label{fig:torusgraphslopes}
  \end{figure}
 
@@ -280,8 +290,8 @@ as shown in figure \ref{fig:dablollipopgraphModelFit}. The MSE trends for the PP
 
 \begin{figure}[]
     \centering
-    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/LollipopGraph/512_512/DAB_vs_PPS_LG_r100_n1024_averaged_log.png}
-    \caption{(512, 512)-Lollipop graph: mean squared error per rounds (log-linear)}
+    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/LollipopGraph/512_512/DAB_vs_PPS_LG_r100_n1024_averaged_loglog.png}
+    \caption{(512, 512)-Lollipop graph: mean squared error per rounds (log-log)}
     \label{fig:lollipopgraphMSEperRoundLogLog}
 \end{figure}
 
@@ -308,8 +318,8 @@ as shown in figure \ref{fig:dablollipopgraphModelFit}. The MSE trends for the PP
 
 \begin{figure}
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/LollipopGraph/512_512/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
-    \caption{Lollipop graph: heat map of slopes per region}
+    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/LollipopGraph/512_512/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \caption{(512, 512)-Lollipop graph: heat map of slopes per region - log-log}
     \label{fig:lollipopslopes}
 \end{figure}
 
@@ -362,8 +372,8 @@ The MSE data of all three load balancing algorithms were fitted to polynomial re
 
 \begin{figure}
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/LollipopGraph/128_896/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
-    \caption{(128, 896)-Lollipop graph: heat map of slopes per region}
+    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/LollipopGraph/128_896/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \caption{(128, 896)-Lollipop graph: heat map of slopes per region - log-log}
     \label{fig:128_896lollipopslopes}
 \end{figure}
 
@@ -383,11 +393,15 @@ The best-fit polynomials for the MSE data of the load balancing algorithms are o
     MSE_r=2.28\times 10^{-7}r^{4}-6.77\times 10^{-5}r^{3}+7.68\times 10^{-3}r^{2}-0.42r+13.62    
 \end{align}
 (figure \ref{fig:atpps_896x128lollipopgraphModelFit}).
-\begin{figure}[]
+
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=\linewidth]{figures/Simulation_outcomes/LollipopGraph/896_128/DAB_vs_PPS_LG_r100_n1024_averaged_loglog.png}
-    \caption{(896, 128)-Lollipop graph: mean squared error per rounds (log-log)}
-    \label{fig:896_128lollipopgraphMSEperRoundLogLog}
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/LollipopGraph/896_128/DAB_vs_PPS_LG_r100_n1024_averaged_log.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/LollipopGraph/896_128/DAB_vs_PPS_LG_r100_n1024_averaged_loglog.png}}
+    \caption{(896, 128)-Lollipop graph: mean squared error per rounds (log-linear
+    and log-log)}
+        \label{fig:fig:896_128lollipopgraphMSEperRoundLogLog}
 \end{figure}
 
 \begin{figure}[]
@@ -411,11 +425,13 @@ The best-fit polynomials for the MSE data of the load balancing algorithms are o
     \label{fig:atpps_896x128lollipopgraphModelFit}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!ht]
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/LollipopGraph/896_128/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
-    \caption{(896, 128) Lollipop Graph: heat map of slopes per region}
-    \label{fig:896x128lollipopslopes}
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/LollipopGraph/896_128/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_linear.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/LollipopGraph/896_128/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \caption{(896, 128)-Lollipop graph: heat map of slopes per region - log-linear and log-log}
+        \label{fig:896x128lollipopslopes}
 \end{figure}
 
 \section{Ring of Cliques}\label{sec:ringofcliques}
@@ -468,11 +484,13 @@ The steep negative slope of -7.59 in the log-log fit indicates a rapid decrease 
     \label{fig:atppsRingOfCliquesModelFit}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!ht]
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingOfCliques/32x32/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
-    \caption{$(32\times32)$-Ring of Cliques: heat map of slopes per region}
-    \label{fig:ringOfCliquesslopes}
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/32x32/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_linear.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/32x32/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \caption{$(32\times32)$-Ring of Cliques: heat map of slopes per region - log-linear and log-log}
+        \label{fig:ringOfCliquesslopes}
 \end{figure}
 
 In the following experiments, the structure of the Ring of Cliques is reorganized. The number of cliques is increased from $2^{5}$ to $2^{7}$ in subsection \ref{subsec:128_8ROC}, which results in a decrease in the size of each clique to $2^{3}$. Subsection \ref{subsec:8_128ROC} covers the experiment where the clique size is increased, while the number of cliques is decreased by the same magnitude.
@@ -523,15 +541,18 @@ All three load balancing algorithms were fitted to fourth-degree polynomials. Th
     \label{fig:128x8atppsRingOfCliquesModelFit}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!ht]
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingOfCliques/128x8/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
-    \caption{$(128\times8)$-Ring of Cliques: heat map of slopes per region}
-    \label{fig:128x8ringOfCliquesslopes}
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/128x8/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_linear.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/128x8/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \caption{$(128\times8)$-Ring of Cliques: heat map of slopes per region - log-linear and log-log}
+        \label{fig:128x8ringOfCliquesslopes}
 \end{figure}
 
 \subsection{8x128 Ring of Cliques}\label{subsec:8_128ROC}
-Increasing the clique size and reducing the number of cliques favors the Push-Pull Sum-based algorithms (PPS and ATPPS), which exhibit a steep decrease in error during the first 5 rounds of the simulation. PPS and ATPPS achieve an error reduction of -200 on average for the start region. DAB shows a more moderate decrease of -36 in the same period. The error reduction slows as the network reaches a balanced state, since the error of the network is already very low, and the network is in a state of good balance, showing an MSE in this region of around $\sim -30$ for the Push-Pull Sum based algorithms. In the middle region, the state of the network managed by the DAB is still very unbalanced, and thus the balance potential is higher. This is shown by the slopes in the middle region. The Push-Pull Sum based algorithms reduce the error by around $-2$, while the DAB shows a still very high value of approximately $-30$. The steep decrease and the low MSE values after rounds 5 and 10 stem from the fast error reduction in the cliques while still having to spread loads from clique to clique through the bridging nodes. Compared to the experiment in the $(8 \times 128)$-Ring of Cliques in \ref{subsec:128_8ROC}, the error after 100 rounds drops to lower values. The final MSE values for the DAB are 5.18 compared to 5.95 for the PPS and 4.56 for the ATPPS. Especially in the last region (rounds 12 to 100), the DAB catches up to the Push-Pull Sum-based algorithms. However, the PPS and ATPPS achieved a broadly balanced state of the network after round 10, dropping the error to an MSE value of 7. In the following rounds, the inter-clique error reduction follows. Here the PPS algorithm has difficulties, since the algorithm orders the nodes of the network to choose their transfer partner at random. The ATPPS has an advantage compared to the PPS here since it prioritizes the bridging nodes once its neighbors within the clique are already balanced. This elaborates why the PPS curve is mostly stagnating, while the ATPPS curve shows a downward trend. The stagnating trend between rounds 20 to 100 is expressed by the linear mode fit in figure \ref{fig:8x128ppsRingOfCliquesModelFit}. The best-fit model follows the equation
+\todo{Über Slopes sprechen}
+Increasing the clique size and reducing the number of cliques favors the Push-Pull Sum-based algorithms (PPS and ATPPS), which exhibit a steep decrease in error during the first 5 rounds of the simulation (figure \ref{fig:8x128RingOfCliquesLog_LogLog}). PPS and ATPPS achieve an error reduction of -200 on average for the start region. DAB shows a more moderate decrease of -36 in the same period. The error reduction slows as the network reaches a balanced state, since the error of the network is already very low, and the network is in a state of good balance, showing an MSE in this region of around $\sim -30$ for the Push-Pull Sum based algorithms. In the middle region, the state of the network managed by the DAB is still very unbalanced, and thus the balance potential is higher. This is shown by the slopes in the middle region. The Push-Pull Sum based algorithms reduce the error by around $-2$, while the DAB shows a still very high value of approximately $-30$. The steep decrease and the low MSE values after rounds 5 and 10 stem from the fast error reduction in the cliques while still having to spread loads from clique to clique through the bridging nodes. Compared to the experiment in the $(8 \times 128)$-Ring of Cliques in \ref{subsec:128_8ROC}, the error after 100 rounds drops to lower values. The final MSE values for the DAB are 5.18 compared to 5.95 for the PPS and 4.56 for the ATPPS. Especially in the last region (rounds 12 to 100), the DAB catches up to the Push-Pull Sum-based algorithms. However, the PPS and ATPPS achieved a broadly balanced state of the network after round 10, dropping the error to an MSE value of 7. In the following rounds, the inter-clique error reduction follows. Here the PPS algorithm has difficulties, since the algorithm orders the nodes of the network to choose their transfer partner at random. The ATPPS has an advantage compared to the PPS here since it prioritizes the bridging nodes once its neighbors within the clique are already balanced. This elaborates why the PPS curve is mostly stagnating, while the ATPPS curve shows a downward trend. The stagnating trend between rounds 20 to 100 is expressed by the linear mode fit in figure \ref{fig:8x128ppsRingOfCliquesModelFit}. The best-fit model follows the equation
 \begin{align}
     MSE_r=-0.0015r+6.05. 
 \end{align}
@@ -539,7 +560,7 @@ The PPS curve shows a more complex relation between the MSE reduction over the r
 \begin{align}
     MSE_r=6.07\times 10^{-5}r^{2}-0.02r+6.39    
 \end{align}
-(figure \ref{fig:8x128ppsRing}). The DAB does not follow a single power relationship in this region. Between rounds 15 and 50, the error reduction can be expressed by a third-degree polynomial
+(figure \ref{fig:8x128ppsRingOfCliquesModelFit}). The DAB does not follow a single power relationship in this region. Between rounds 15 and 50, the error reduction can be expressed by a third-degree polynomial
 \begin{align}
     MSE_r=-3.33\times 10^{-3}r^{3}+0.63r^{2}-40.23r+872.75    
 \end{align}
@@ -556,7 +577,7 @@ Snippets of the simulation results confirm that within each clique, loads are ba
     \hfil
         \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/8x128/DAB_vs_PPS_RoC_r100_n1024_averaged_loglog.png}}
     \caption{$(8\times128)$-Ring of Cliques: mean squared error per rounds (log-linear and log-log)}
-        \label{fig:128x8RingOfCliquesLog_LogLog}
+        \label{fig:8x128RingOfCliquesLog_LogLog}
 \end{figure}
 
 \begin{figure}[!ht]
@@ -581,11 +602,13 @@ Snippets of the simulation results confirm that within each clique, loads are ba
     \label{fig:8x128atppsRingOfCliquesModelFit}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!ht]
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingOfCliques/8x128/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds.png}}
-    \caption{$(8\times128)$-Ring of Cliques: heat map of slopes per region}
-    \label{fig:128x8ringOfCliquesslopes}
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/8x128/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_linear.png}}
+    \hfil
+        \subfloat[]{\includegraphics[width=0.49\linewidth]{figures/Simulation_outcomes/RingOfCliques/8x128/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \caption{$(8\times128)$-Ring of Cliques: heat map of slopes per region - log-linear and log-log}
+        \label{fig:8x128ringOfCliquesslopes}
 \end{figure}
 
 \begin{lstlisting}[caption=Snippet of simulation outcomes ATPPS: Experiment 2, captionpos=b, label=lst:exampleROCOutcomes]

@@ -1,0 +1,17 @@
+\begin{sidewaystable}
+    \centering
+    \caption{Simulation overview per topology: fitted model, slopes per region, and final MSE}
+    \label{table:overviewsims}
+    \begin{tabular}{ll l c c c c c}
+        \toprule
+        \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope} \\ 
+        & & & \shortstack{Rounds \\ 1--10} & \shortstack{Rounds \\ 11--69} & \shortstack{Rounds \\ 70--100} & \shortstack{Rounds \\ 1--100} & \shortstack{$MSE_{100}$} \\
+        \midrule
+        \multirow{3}{*}{$R_{1024}$} 
+        & DAB   & \shortstack{\textbf{Rounds 10--60:} \\ $MSE_r=1.72 \times 10^{-5}r^{4} - 2.30 \times 10^{-3}r^{3} + 0.19r^{2}$ \\ $ - 5.99r + 114.83$} & -82 & -0.71 & -0.15 & -8.2  & 22.41 \\
+        & PPS   & \shortstack{\textbf{Rounds 10--60:} \\ $MSE_r= 2.99 \times 10^{-5}r^{4} - 0.5 \times 10^{-2}r^{3} + 0.32r^{2}$ \\ $ - 9.68r + 166.30$} & -82 & -1 & -0.19 & -8.1  & 27.68 \\
+        & ATPPS & \shortstack{\textbf{Rounds 10--60:} \\ $MSE_r= 3.04 \times 10^{-5}r^{4} - 0.5 \times 10^{-2}r^{3} + 0.32r^{2}$ \\ $ - 9.64r + 161.86$} & -82 & -0.98 & -0.17 & -8.1  & 26.56 \\
+        \bottomrule
+    \end{tabular}
+  \end{sidewaystable}
+  

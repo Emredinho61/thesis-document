@@ -1,0 +1,50 @@
+\begin{sidewaystable}
+  \centering
+  \caption{Simulation overview for $ROC_{32,32}$: fitted model, slopes per region, and final MSE}
+  \label{table:overview_ROC_32_32}
+  \begin{tabular}{ll l c c c c c}
+      \toprule
+      \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope} \\ 
+      & & & \shortstack{Rounds \\ 1--5} & \shortstack{Rounds \\ 6--10} & \shortstack{Rounds \\ 11--100} & \shortstack{Rounds \\ 1--100} & \shortstack{$MSE_{100}$} \\
+      \midrule
+      \multirow{3}{*}{$ROC_{32,32}$} 
+      & DAB   & \makecell[l]{$MSE_r=-5.89\times10^{-5}r^{3}+0.03r^{2}$ \\ $-5.68r+459.42$} & -120 & -48 & -0.78 & -8.3 & 6.55 \\
+      & PPS   & \makecell[l]{$MSE_r=8.44\times 10^{-7}r^{4}-2.52\times 10^{-4}r^{3}$ \\ $-0.03r^{2}-1.64r+56.68$} & -200 & -2.9 & $-5.1 \times 10^{-2}$ & -8.2 & 19.80 \\
+      & ATPPS & \makecell[l]{$MSE_r=8.69 \times 10^{-7}r^{4}-2.56 \times 10^{-4}r^{3}$ \\ $+0.03r^{2}-1.62r+54.48$} & -200 & -1.7 & -0.17 & -8.3 & 8.42 \\
+      \bottomrule
+  \end{tabular}
+\end{sidewaystable}
+
+\begin{sidewaystable}
+  \centering
+  \caption{Simulation overview for $ROC_{128,8}$: fitted model, slopes per region, and final MSE}
+  \label{table:overview_ROC_128_8}
+  \begin{tabular}{ll l c c c c c}
+      \toprule
+      \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope} \\ 
+      & & & \shortstack{Rounds \\ 1--5} & \shortstack{Rounds \\ 6--11} & \shortstack{Rounds \\ 12--100} & \shortstack{Rounds \\ 1--100} & \shortstack{$MSE_{100}$} \\
+      \midrule
+      \multirow{3}{*}{$ROC_{128,8}$} 
+      & DAB   & \makecell[l]{$MSE_r=5.45\times 10 ^{-7}r^{4}-1.7\times 10^{-4}r^{3}$ \\ $+0.02r^{2}-1.33r+46.71$} & -190 & -5.2 & -0.36 & -8.3 & 10.64 \\
+      & PPS   & \makecell[l]{$MSE_r=1.04\times 10 ^{-6}r^{4}-3.41\times 10^{-4}r^{3}$ \\ $+0.04r^{2}-2.73r+97.58$} & -180 & -3.6 & -0.57 & -8.2 & 22.33 \\
+      & ATPPS & \makecell[l]{$MSE_r=9.54\times 10^{-7}r^{4}-2.93\times 10^{-4}r^{3}$ \\ $+0.03r^{2}-2.05r+67.02$} & -180 & -4.6 & -0.53 & -8.3 & 13.68 \\
+      \bottomrule
+  \end{tabular}
+\end{sidewaystable}
+
+\begin{sidewaystable}
+  \centering
+  \caption{Simulation overview for $ROC_{8,128}$: fitted model, slopes per region, and final MSE}
+  \label{table:overview_ROC_8_128}
+  \begin{tabular}{ll l c c c c c}
+      \toprule
+      \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope} \\ 
+      & & & \shortstack{Rounds \\ 1--5} & \shortstack{Rounds \\ 6--11} & \shortstack{Rounds \\ 12--100} & \shortstack{Rounds \\ 1--100} & \shortstack{$MSE_{100}$} \\
+      \midrule
+      \multirow{3}{*}{$ROC_{8,128}$} 
+      & DAB   & \makecell[l]{$MSE_r=-3.33\times 10^{-3}r^{3}+0.63r^{2}$ \\ $-40.23r+872.75$ \\ \textbf{Rounds 60-100:} \\ $MSE_r=2.96 \times 10^{-6}r^{4}-9.97\times 10^{-3}r^{3}$ \\ $+0.13r^{2}-7.16r+161.73$} & -36 & -30 & -5.3 & -8.4 & 5.18 \\
+      & PPS   & \makecell[l]{$MSE_r=6.07\times 10^{-5}r^{2}-0.02r+6.39$} & -200 & -2 & $-1.5 \times 10^{-3}$ & -8.3 & 5.95 \\
+      & ATPPS & \makecell[l]{$MSE_r=-0.0015x+6.05$} & -200 & -1.5 & $-1.7 \times 10^{-2}$ & -8.4 & 4.56 \\
+      \bottomrule
+  \end{tabular}
+\end{sidewaystable}

@@ -1,50 +1,50 @@
 \begin{sidewaystable}
   \centering
-  \caption{Simulation overview for $L_{512,512}$: fitted model, slopes per region, and final MSE}
-  \label{table:overview_L512_512}
+  \caption{Simulation overview - $L_{512,512}$: fitted model, slopes per region, and final MSE}
+  \label{table:overview_Lollipop512_512}
   \begin{tabular}{ll l c c c c c}
       \toprule
-      \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope} \\ 
+      \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope (log-log)} \\ 
       & & & \shortstack{Rounds \\ 1--7} & \shortstack{Rounds \\ 8--50} & \shortstack{Rounds \\ 51--100} & \shortstack{Rounds \\ 1--100} & \shortstack{$MSE_{100}$} \\
       \midrule
       \multirow{3}{*}{$L_{512,512}$} 
-      & DAB   & \makecell[l]{$MSE_r=-5.89\times10^{-5}r^{3}+0.03r^{2}$ \\ $-5.68r+459.42$} & -67 & -4.5 & -2.6 & -7.3 & 108.90 \\
-      & PPS   & \makecell[l]{$MSE_r=8.44\times 10^{-7}r^{4}-2.52\times 10^{-4}r^{3}$ \\ $-0.03r^{2}-1.64r+56.68$} & -130 & -0.9 & -0.12 & -8.3 & 14.71 \\
-      & ATPPS & \makecell[l]{$MSE_r=8.69 \times 10^{-7}r^{4}-2.56 \times 10^{-4}r^{3}$ \\ $+0.03r^{2}-1.62r+54.48$} & -130 & -0.87 & -0.12 & -8.3 & 13.82 \\
+      & DAB   & \makecell[l]{$MSE_r=-5.89\times10^{-5}r^{3}+0.03r^{2}$ \\ $-5.68r+459.42$} & -0.34 & -0.32 & -1.1 & -0.44 & 108.90 \\
+      & PPS   & \makecell[l]{$MSE_r=8.44\times 10^{-7}r^{4}-2.52\times 10^{-4}r^{3}$ \\ $-0.03r^{2}-1.64r+56.68$} & -1.3 & -0.56 & -0.51 & -0.88 & 14.71 \\
+      & ATPPS & \makecell[l]{$MSE_r=8.69 \times 10^{-7}r^{4}-2.56 \times 10^{-4}r^{3}$ \\ $+0.03r^{2}-1.62r+54.48$} & -1.3 & -0.57 & -0.51 & -0.89 & 13.82 \\
       \bottomrule
   \end{tabular}
 \end{sidewaystable}
 
 \begin{sidewaystable}
   \centering
-  \caption{Simulation overview for $L_{128,896}$: fitted model, slopes per region, and final MSE}
+  \caption{Simulation overview - $L_{128,896}$: fitted model, slopes per region, and final MSE}
   \label{table:overview_L128_896}
   \begin{tabular}{ll l c c c c c}
       \toprule
-      \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope} \\ 
+      \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope (log-log)} \\ 
       & & & \shortstack{Rounds \\ 1--7} & \shortstack{Rounds \\ 8--50} & \shortstack{Rounds \\ 51--100} & \shortstack{Rounds \\ 1--100} & \shortstack{$MSE_{100}$} \\
       \midrule
       \multirow{3}{*}{$L_{128,896}$} 
-      & DAB   & \makecell[l]{$MSE_r=3.46\times 10^{-6}r^{4}-1.12\times 10^{-3}r^{3}$ \\ $+0.14r^{2}-7.69r+190.78$} & -110 & -2.8 & -0.25 & -8.2 & 17.47 \\
-      & PPS   & \makecell[l]{$MSE_r=-3.72\times 10^{-8}r^{5}+1.31\times 10^{-5}r^{4}$ \\ $-1.85\times 10^{-3}r^{3}+0.13r^{2}-4.96r+84.91$} & -120 & -1.5 & $-7.6 \times 10^{-2}$ & -8.4 & 3.31 \\
-      & ATPPS & \makecell[l]{$MSE_r=1.59\times 10^{-6}r^{4}-4.74\times 10^{-4}r^{3}$ \\ $+0.054r^{2}-2.94r+70.59$} & -120 & -1.6 & -0.13 & -8.4 & 3.41 \\
+      & DAB   & \makecell[l]{$MSE_r=3.46\times 10^{-6}r^{4}-1.12\times 10^{-3}r^{3}$ \\ $+0.14r^{2}-7.69r+190.78$} & -0.86 & -0.87 & -0.78 & -0.84 & 17.47 \\
+      & PPS   & \makecell[l]{$MSE_r=-3.72\times 10^{-8}r^{5}+1.31\times 10^{-5}r^{4}$ \\ $-1.85\times 10^{-3}r^{3}+0.13r^{2}-4.96r+84.91$} & -1.2 & -1.3 & -1.1 & -1.2 & 3.31 \\
+      & ATPPS & \makecell[l]{$MSE_r=1.59\times 10^{-6}r^{4}-4.74\times 10^{-4}r^{3}$ \\ $+0.054r^{2}-2.94r+70.59$} & -1.2 & -1.1 & -1.5 & -1.2 & 3.41 \\
       \bottomrule
   \end{tabular}
 \end{sidewaystable}
 
 \begin{sidewaystable}
   \centering
-  \caption{Simulation overview for $L_{128,896}$: fitted model, slopes per region, and final MSE}
+  \caption{Simulation overview - $L_{128,896}$: fitted model, slopes per region, and final MSE}
   \label{table:overview_L128_896}
   \begin{tabular}{ll l c c c c c}
       \toprule
-      \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope} \\ 
+      \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope (log-log)} \\ 
       & & & \shortstack{Rounds \\ 1--7} & \shortstack{Rounds \\ 8--50} & \shortstack{Rounds \\ 51--100} & \shortstack{Rounds \\ 1--100} & \shortstack{$MSE_{100}$} \\
       \midrule
       \multirow{3}{*}{$L_{128,896}$} 
-      & DAB   & \makecell[l]{$MSE_r=3.46\times 10^{-6}r^{4}-1.12\times 10^{-3}r^{3}$ \\ $+0.14r^{2}-7.69r+190.78$} & -110 & -2.8 & -0.25 & -8.2 & 17.47 \\
-      & PPS   & \makecell[l]{$MSE_r=-3.72\times 10^{-8}r^{5}+1.31\times 10^{-5}r^{4}$ \\ $-1.85\times 10^{-3}r^{3}+0.13r^{2}-4.96r+84.91$} & -120 & -1.5 & $-7.6 \times 10^{-2}$ & -8.4 & 3.31 \\
-      & ATPPS & \makecell[l]{$MSE_r=1.59\times 10^{-6}r^{4}-4.74\times 10^{-4}r^{3}$ \\ $+0.054r^{2}-2.94r+70.59$} & -120 & -1.6 & -0.13 & -8.4 & 3.41 \\
+      & DAB   & \makecell[l]{$MSE_r=3.46\times 10^{-6}r^{4}-1.12\times 10^{-3}r^{3}$ \\ $+0.14r^{2}-7.69r+190.78$} & -0.08 & -0.1 & -0.11 & -0.09 & 17.47 \\
+      & PPS   & \makecell[l]{$MSE_r=-3.72\times 10^{-8}r^{5}+1.31\times 10^{-5}r^{4}$ \\ $-1.85\times 10^{-3}r^{3}+0.13r^{2}-4.96r+84.91$} & -2 & -0.59 & -0.47 & -1.2 & 3.31 \\
+      & ATPPS & \makecell[l]{$MSE_r=1.59\times 10^{-6}r^{4}-4.74\times 10^{-4}r^{3}$ \\ $+0.054r^{2}-2.94r+70.59$} & -2 & -0.61 & -0.5 & -1.2 & 3.41 \\
       \bottomrule
   \end{tabular}
 \end{sidewaystable}

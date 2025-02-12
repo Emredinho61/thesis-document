@@ -23,13 +23,13 @@ The slopes for the log-linear representation is calculated as:
 The MSE data over time is modeled using linear regression, polynomial regression, exponential regression, or logarithmic regression, depending on the best-fitting model.
 
 \textbf{Linear Regression}: Linear regression models the relationship between MSE and simulation rounds as 
-\begin{align}
+\begin{align} \label{eq:linreg}
     MSE_r=m*r+b,    
 \end{align}
 where $m$ is the slope, calculated as $m=\frac{\Delta MSE}{\Delta r}=(\frac{MSE_{r_2}-MSE_{r_1}}{r_2 - r_1})$. In this context the slope is mostly negative, as $MSE_r$ decreases in comparison to $MSE_{r-1}$. $b$ is the initial MSE at round $r=0$, which represents the initial imbalance of the network before any load balancing is applied.
 
 \textbf{Polynomial Regression}: The polynomial regression model is expressed as
-\begin{align}
+\begin{align} \label{eq:polyfit}
     MSE_r=a_0+a_1*r+a_2*r^{2}+a_3*r^{3}+...+a_n*r^{n}.    
 \end{align}
 This model is utilized when MSE reduction per round follows a power law relationship. It captures non-linear relationships between the independent variable $r$ and dependent variable $MSE_r$ \cite{MotulskyDataFitting}. Polynomial regression can model non-linear trends like diminishing returns (e.g., rapid MSE reduction initially, then slower reduction). It fits the curvature of MSE decay, even if it's not strictly exponential or linear. Higher-degree polynomials can capture intricate patterns in the reduction of MSE over rounds.

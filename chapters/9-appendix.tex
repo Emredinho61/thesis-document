@@ -1,10 +1,65 @@
 \chapter{Appendix}\label{chap:appendix}
-\begin{figure}
-    \centering
-    \scalebox{0.3}{\includegraphics{figures/placeholder/example_ring_problem.jpg}}
-    \caption{Example Ring Graph}
-    \label{fig:exampleRingProblem}
-\end{figure}
+\section{Model Fitting}\label{sec:modelfitting}
+The model fitting was carried out with \textit{SciPy} and \textit{NumPy} in the python programming language. In the case of the exponential model fit \textit{SciPy} provides a optimizer \textit{scipy.optimizer}, which provides the \textbf{curve\_fit} method \cite{SciPyCurveFit}. This method uses the Levenberg-Marquardt method to solve non-linear least squared problems. \textit{NumPy} delivers the \textbf{polyfit} method, which was used to fit the MSE data to the polynomial model described in equation \ref{eq:polyfit}. The linear regression is achieved using \textit{scipy.stats} \textbf{linregress} method, which calculates a linear least-squares regression for two sets of data points for x and y \cite{SciPyLinRegress}.
+
+\subsection{Levenberg-Marquardt Method}\label{subsec:lmMethod}
+The Levenberg-Marquardt method is a hybrid of the Gauss-Newton method and the Levenberg-method (Trust-Region approach). Starting from an initial guess for the parameters, the Levenberg-Marquardt method uses the Jacobian matrix to estimate how changes in parameters affect the fitted function. Then a damped least squared step is applied, where if the parameters are far from optimal, the Levenberg-Marquardt method behaves like the gradient descent, and if the parameters are near optimal the Levenberg-Marquardt method acts like the Gauss-Newton method. It minimizes the sum of the squared residuals:
+\begin{align}
+    f(x)=\frac{1}{2}\sum_{j=1}^{m}{r_{j}^{2}(x)=\frac{1}{2}||r||^{2}},
+\end{align}
+where $f(x)$ is the objective function that we are trying to minimize, $r_{j}(x)$ represent the residuals (which are the differences between the observed data and the model predictions), $r(x)$ is the vector of residuals, where $r(x)=[r_{1}(x), r_{2}(x),...,r_{n}(x)]^T$. $||r||^{2}$ is the squared Euclidean norm of the residual vector, which sums the squared differences. The Gauss-Newton method is modified by a damping coefficient $\lambda$ and is written as:
+\begin{align}
+    (J^{T}J+ \lambda I)p = J^{T}r(x),
+\end{align}
+where J is the Jacobian matrix of $r(x)$ (the derivatives of the residuals), $I$ is the identity matrix and $\lambda$ controls the step size (a large $\lambda$ leads to gradient descent, small $\lambda$ lead to the Gauss-Newton method). $J^{T}J$ is the approximation of the Hessian matrix. $p$ is the update step. This equation is solved iteratively reducing $f(x)$ until the parameters converge.
+
+If $\lambda$ is large, the equation behaves like the gradient descent:
+\begin{align}
+    \lambda I p= J^{T}r(x),
+\end{align}
+while a small $\lambda$ causes the equation to behave like the Gauss-Newton method:
+\begin{align}
+    J^{T}Jp=J^{T}r(x).
+\end{align}
+\cite{gavin2020levenberg} \cite{Levenberg-Marquardt} \cite{broxOptimierung}
+
+\subsection{Linear Regression by SciPy}\label{subsec:linreg}
+SciPy's \textbf{linregress} method fits data to a simple linear model as depicted in equation \ref{eq:linreg}. It achieves this by solving the \textit{Ordinary Least Squares} regression which minimizes the sum of squared residuals. It returns the slope and the intercept of the fitted line, as well as the \textit{R-value} (\textit{Pearson's R}), \textit{p-value}, standard error  of the estimated slope and the standard error of the estimated intercept.
+\cite{SciPyLinRegress} \cite{Wooditch2021}
+
+\subsection{polyfit and polyval by Numpy}\label{subsec:polyfit}
+The \textit{numpy.polyfit} method fits a polynomial of a given degree to a set of data points using the least squares minimization method \cite{NumPyPolyfit}. This method constructs the Vandermonde Matrix of a degree $d$ and a set of data points $(x_{1}, y_{1}), (x_{2}, y_{2}), ...,(x_{n}, y_{n})$ of form:
+\begin{align}
+    V =
+    \begin{bmatrix} 
+        x_{1}^{d} & x_{1}^{d-1} & \dots & x_{1}^{1} & 1 \\
+        x_{2}^{d} & x_{2}^{d-1} & \dots & x_{2}^{1} & 1 \\
+        \vdots & \vdots & \ddots & \vdots & \vdots \\
+        x_{n}^{d} & x_{n}^{d-1} & \dots & x_{n}^{1} & 1 \\ 
+    \end{bmatrix}
+\end{align}
+Each row represents one data point, and each column corresponds to a power of $x$. Following the construction of the Vandermonde-matrix, the polynomial coefficients $c=[c_{d},c_{d-1},...,c_{0}]$ are computed by solving:
+\begin{align}
+    c=(V^{T}V)^{-1}V^{T}y.
+\end{align}
+This method solves the linear least squares and ensures that the sum of squared residuals is minimized:
+\begin{align}
+    \sum_{i=1}{(y_{i}-P(x_i))^{2}}^{n},
+\end{align}
+where $P(x_i)$ is the polynomial function. \cite{NumPyPolyfit} \cite{Vandermonde} \cite{GATechLS}
+
+Once the polynomial coefficients are computed, the polynomial is evaluated using numpy's \textbf{polyval} method. This method internally uses the \textit{Horner's method} in order to reduce the number of multiplications. For the polynomial of form:
+\begin{align}
+    P(x) = a_{n}x^{n}+a_{n-1}x^{n-1}+ \dots + a_{1}x+a_{0}
+\end{align}
+this method outputs a polynomial of form:
+\begin{align}
+    P(x)=p_{0}x^{n}+p_{1}^{n-1}+\dots + p_{n}.
+\end{align}
+\cite{wolfram_horner}
+
+\section{Overview of Simulation Outcomes}\label{sec:overviewSimOutcomes}
+The simulation outcomes are presented in the tables \ref{table:overviewcompletegraph}, \ref{table:overviewstar}, \ref{table:overviewring}, \ref{table:overviewtorus}, \ref{table:overview_Lollipop512_512}, \ref{table:overview_L128_896} \ref{table:overview_L896_128}, \ref{table:overview_ROC_32_32}, \ref{table:overview_ROC_128_8} and \ref{table:overview_ROC_8_128}. The tables contain the equations for the fitted models, the slopes in all regions and the MSE value after 100 rounds of execution of the algorithms.
 
 \input{figures/Tables/table-complete_graph.tex}
 
@@ -17,3 +72,10 @@
 \input{figures/Tables/table-Lollipop.tex}
 
 \input{figures/Tables/table-ROC.tex}
+
+\begin{figure}
+    \centering
+    \scalebox{0.3}{\includegraphics{figures/placeholder/example_ring_problem.jpg}}
+    \caption{Example Ring Graph}
+    \label{fig:exampleRingProblem}
+\end{figure}

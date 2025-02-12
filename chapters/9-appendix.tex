@@ -73,9 +73,21 @@ The simulation outcomes are presented in the tables \ref{table:overviewcompleteg
 
 \input{figures/Tables/table-ROC.tex}
 
-\begin{figure}
+\section{Struggles of the Single-Proposal Deal-Agreement-Based Algorithms with Dense Graphs}\label{sec:struggleDAB}
+Figure \ref{fig:specialcompletegraphDemo} shows a complete graph with 6 nodes. The red node is the minimally loaded node in the network that carries the load $L_{min}$. With the Single-Proposal Deal-Agreement-Based algorithm, all blue nodes now propose a load transfer to the red node. The red node now has exactly 5 options that it evaluates and accepts only one. This behaviour also occurs with Complete graphs with a larger network size. The problem: in a graph where every node is connected to each other, the balancing potential is usually high, as there are many options per node, however in this stubborn deterministic way this load balancing algorithm decreases the error only in very small steps.
+
+A similar problem now occurs with the Star graph, as visualised in figure \ref{fig:specialstargraphDemo}. The nodes have the same structure as the Star graph, with only the central node as a partner. Now all leaves propose a load transfer to the central node again, only now with the difference that the central node is not necessarily the minimum loaded node in the network (i.e. it does not carry $L_{min}$). The minimally loaded node in the example of figure \ref{fig:specialstargraphDemo} is a leaf node. The central node now receives a maximum of 4 proposals (i.e. exactly when the central node is the 2nd minimum node in the network) and accepts exactly one. However, if the central node is the maximum loaded node (i.e. the node that carries $L_{max}$), then there will be no proposal from the leaf nodes, only the central node proposes the minimally loaded node and that is the only load transfer.
+
+In both example the number of load transfers is heavily limited.
+\begin{figure}[]
     \centering
-    \scalebox{0.3}{\includegraphics{figures/placeholder/example_ring_problem.jpg}}
-    \caption{Example Ring Graph}
-    \label{fig:exampleRingProblem}
+    \input{figures/Graphs/specialcompleteg.tex}
+    \caption{Complete graph: network size 6}
+    \label{fig:specialcompletegraphDemo}
+\end{figure}
+\begin{figure}[]
+    \centering
+    \input{figures/Graphs/specialstar.tex}
+    \caption{Star graph: network size 6}
+    \label{fig:specialstargraphDemo}
 \end{figure}

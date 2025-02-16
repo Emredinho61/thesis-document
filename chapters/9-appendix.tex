@@ -11,7 +11,7 @@ where $f(x)$ is the objective function that we are trying to minimize, $r_{j}(x)
 \begin{align}
     (J^{T}J+ \lambda I)p = J^{T}r(x),
 \end{align}
-where $J$ is the Jacobian matrix of $r(x)$ (the derivatives of the residuals), $I$ is the identity matrix, and $\lambda$ controls the step size (a large $\lambda$ leads to gradient descent, small $\lambda$ leads to the Gauss-Newton method). $J^{T}J$ is the approximation of the Hessian matrix. $p$ is the update step. This equation is solved iteratively, reducing $f(x)$ until the parameters converge.
+where $J$ is the Jacobian matrix of $r(x)$ (the derivatives of the residuals), $I$ is the identity matrix, and $\lambda$ controls the step size. $J^{T}J$ is the approximation of the Hessian matrix. $p$ is the update step. This equation is solved iteratively, reducing $f(x)$ until the parameters converge.
 
 If $\lambda$ is large, the equation behaves like the gradient descent:
 \begin{align}
@@ -23,12 +23,12 @@ while a small $\lambda$ causes the equation to behave like the Gauss-Newton meth
 \end{align}
 \cite{gavin2020levenberg} \cite{Levenberg-Marquardt} \cite{broxOptimierung}
 
-\subsection{Linear Regression by SciPy}\label{subsec:linreg}
+\subsection{SciPy's linregress}\label{subsec:linreg}
 SciPy's \textbf{linregress} method fits data to a simple linear model as depicted in equation \ref{eq:linreg}. It achieves this by solving the \textit{Ordinary Least Squares} regression, which minimizes the sum of squared residuals. It returns the slope and the intercept of the fitted line, as well as the \textit{R-value} (\textit{Pearson's R}), \textit{p-value}, standard error of the estimated slope, and the standard error of the estimated intercept.
 \cite{SciPyLinRegress} \cite{Wooditch2021}
 
-\subsection{polyfit and polyval by Numpy}\label{subsec:polyfit}
-The \textit{numpy.polyfit} method fits a polynomial of a given degree to a set of data points using the least squares minimization method \cite{NumPyPolyfit}. First, the Vandermonde Matrix is constructed if given a degree $d$ and a set of data points $(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)$ of the form:
+\subsection{NumPy's polyfit and polyval}\label{subsec:polyfit}
+The \textit{numpy.polyfit} method fits a polynomial of a given degree to a set of data points using the least squares minimization method \cite{NumPyPolyfit}. First, the Vandermonde Matrix is constructed, if given a degree $d$ and a set of data points $(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)$ of the form:
 \begin{align}
     V =
     \begin{bmatrix} 
@@ -36,15 +36,15 @@ The \textit{numpy.polyfit} method fits a polynomial of a given degree to a set o
         x_{2}^{d} & x_{2}^{d-1} & \dots & x_{2}^{1} & 1 \\
         \vdots & \vdots & \ddots & \vdots & \vdots \\
         x_{n}^{d} & x_{n}^{d-1} & \dots & x_{n}^{1} & 1 \\ 
-    \end{bmatrix}
+    \end{bmatrix}.
 \end{align}
-Each row represents one data point, and each column corresponds to a power of $x$. Following the construction of the Vandermonde matrix, the polynomial coefficients are $c=[c_{d},c_{d-1},...,c_{0}]$ are computed by solving:
+Each row represents one data point, and each column corresponds to a power of $x$. Following the construction of the Vandermonde matrix, the polynomial coefficients $c=[c_{d},c_{d-1},...,c_{0}]$ are computed by solving:
 \begin{align}
     c=(V^{T}V)^{-1}V^{T}y.
 \end{align}
 This method solves the linear least squares problem and ensures that the sum of squared residuals is minimized:
 \begin{align}
-    \sum_{i=1}{(y_{i}-P(x_i))^{2}}^{n},
+    \sum_{i=1}{(y_{i}-P(x_i))^{2}},
 \end{align}
 where $P(x_{i})$ is the polynomial function. \cite{NumPyPolyfit} \cite{Vandermonde} \cite{GATechLS}
 
@@ -52,7 +52,7 @@ Once the polynomial coefficients are computed, the polynomial is evaluated using
 \begin{align}
     P(x) = a_{n}x^{n}+a_{n-1}x^{n-1}+ \dots + a_{1}x+a_{0}
 \end{align}
-It outputs a polynomial of form:
+it outputs a polynomial of form:
 \begin{align}
     P(x)=p_{0}x^{n}+p_{1}^{n-1}+\dots + p_{n}.
 \end{align}
@@ -74,9 +74,9 @@ The simulation outcomes are presented in the tables \ref{table:overviewcompleteg
 \input{figures/Tables/table-ROC.tex}
 
 \section{Struggles of the Single-Proposal Deal-Agreement-Based Algorithms with Dense Graphs}\label{sec:struggleDAB}
-Figure \ref{fig:specialcompletegraphDemo} illustrates a Complete graph with six nodes. The red node represents the minimally loaded node in the network that carries the load $L_{min}$. Using the Single-Proposal Deal-Agreement-Based algorithm, all blue nodes propose a load transfer to the red node. Since the red node now has exactly five potential transfer options, it evaluates these options and accepts only one. This behavior also occurs with Complete graphs with a larger network size. The problem: in a graph where every node is connected to each other, the balancing potential is usually high, as there are many options per node, however in this stubborn deterministic way this load balancing algorithm decreases the error only in very small steps.
+Figure \ref{fig:specialcompletegraphDemo} illustrates a Complete graph with six nodes. The red node represents the minimally loaded node in the network that carries the load $L_{min}$. Using the Single-Proposal Deal-Agreement-Based algorithm, all blue nodes propose a load transfer to the red node. Since the red node now has exactly five potential transfer options, it evaluates these options and accepts only one. This behavior also occurs with Complete graphs with a larger network size. In a graph where each node is interconnected, the balancing potential is usually high, as there are many options per node, however in this stubborn deterministic way this load balancing algorithm decreases the error only in very small steps.
 
-A similar problem arises in the Star graph, as shown in figure \ref{fig:specialstargraphDemo}. The nodes have the same structure as the Star graph, with only the central node as a partner. Now all leaves propose a load transfer to the central node again, only now with the difference that the central node is not necessarily the minimum loaded node in the network (i.e., it does not carry $L_{min}$). The minimally loaded node in the example of figure \ref{fig:specialstargraphDemo} is a leaf node. The central node now receives a maximum of 4 proposals (i.e., exactly when the central node is the 2nd minimum node in the network) and accepts exactly one. However, if the central node is the maximum loaded node (i.e., the node that carries $L_{max}$), then there will be no proposal from the leaf nodes; only the central node proposes the minimally loaded node, and that is the only load transfer.
+A similar problem arises in the Star graph, as shown in figure \ref{fig:specialstargraphDemo}. All nodes have the central node as a neighbor. Now all leaves propose a load transfer to the central node, only now with the difference that the central node is not necessarily the minimum loaded node in the network (i.e., it does not carry $L_{min}$). The minimally loaded node in the example of figure \ref{fig:specialstargraphDemo} is a leaf node. The central node now receives a maximum of 4 proposals (i.e., exactly when the central node is the 2nd minimum node in the network) and accepts exactly one. If the central node is the maximum loaded node (i.e., the node that carries $L_{max}$), then there will be no proposals from the leaf nodes, only the central node proposes the minimally loaded node, and that is the only load transfer.
 
 In both examples, the number of load transfers is heavily limited.
 \begin{figure}[]

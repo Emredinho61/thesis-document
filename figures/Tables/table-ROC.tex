@@ -8,9 +8,9 @@
       & & & \shortstack{Rounds \\ 1--5} & \shortstack{Rounds \\ 6--10} & \shortstack{Rounds \\ 11--100} & \shortstack{Rounds \\ 1--100} & \shortstack{$MSE_{100}$} \\
       \midrule
       \multirow{3}{*}{$ROC_{32,32}$} 
-      & DAB   & \makecell[l]{$MSE_r=-5.89\times10^{-5}r^{3}+0.03r^{2}$ \\ $-5.68r+459.42$} & -0.51 & -2.1 & -1.1 & -1.1 & 6.55 \\
-      & PPS   & \makecell[l]{$MSE_r=8.44\times 10^{-7}r^{4}-2.52\times 10^{-4}r^{3}$ \\ $-0.03r^{2}-1.64r+56.68$} & -1.8 & -0.61 & -0.09 & -0.81 & 19.80 \\
-      & ATPPS & \makecell[l]{$MSE_r=8.69 \times 10^{-7}r^{4}-2.56 \times 10^{-4}r^{3}$ \\ $+0.03r^{2}-1.62r+54.48$} & -1.8 & -0.49 & -0.47 & -1 & 8.42 \\
+      & DAB   & \shortstack{\textbf{Rounds 20--100:} \\$MSE_r=1.04\times 10^{-6}r^{4}-2.94\times 10^{-4}r^{3}$\\$+0.03r^{2}-1.66r+45.30$} & -0.51 & -2.1 & -1.1 & -1.1 & 6.55 \\
+      & PPS   & \shortstack{\textbf{Rounds 10--100:} \\\makebox[6.8cm]{$MSE_r=-0.05r+24.70$}} & -1.8 & -0.61 & -0.09 & -0.81 & 19.80 \\
+      & ATPPS & \shortstack{\textbf{Rounds 10--100:} \\\makebox[6.8cm]{$MSE_r=r^{-7.59}*10^{43.26}$}} & -1.8 & -0.49 & -0.47 & -1 & 8.42 \\
       \bottomrule
   \end{tabular}
 \end{sidewaystable}
@@ -25,9 +25,9 @@
       & & & \shortstack{Rounds \\ 1--5} & \shortstack{Rounds \\ 6--11} & \shortstack{Rounds \\ 12--100} & \shortstack{Rounds \\ 1--100} & \shortstack{$MSE_{100}$} \\
       \midrule
       \multirow{3}{*}{$ROC_{128,8}$} 
-      & DAB   & \makecell[l]{$MSE_r=5.45\times 10 ^{-7}r^{4}-1.7\times 10^{-4}r^{3}$ \\ $+0.02r^{2}-1.33r+46.71$} & -1.4 & -0.75 & -0.66 & -0.95 & 10.64 \\
-      & PPS   & \makecell[l]{$MSE_r=1.04\times 10 ^{-6}r^{4}-3.41\times 10^{-4}r^{3}$ \\ $+0.04r^{2}-2.73r+97.58$} & -1.3 & -0.36 & -0.55 & -0.79 & 22.33 \\
-      & ATPPS & \makecell[l]{$MSE_r=9.54\times 10^{-7}r^{4}-2.93\times 10^{-4}r^{3}$ \\ $+0.03r^{2}-2.05r+67.02$} & -1.3 & -0.49 & -0.7 & -0.89 & 13.68 \\
+      & DAB   & \shortstack{\textbf{Rounds 30--100:} \\$MSE_r=5.45\times 10 ^{-7}r^{4}-1.7\times 10^{-4}r^{3}$ \\ $+0.02r^{2}-1.33r+46.71$} & -1.4 & -0.75 & -0.66 & -0.95 & 10.64 \\
+      & PPS   & \shortstack{\textbf{Rounds 30--100:} \\$MSE_r=1.04\times 10 ^{-6}r^{4}-3.41\times 10^{-4}r^{3}$ \\ $+0.04r^{2}-2.73r+97.58$} & -1.3 & -0.36 & -0.55 & -0.79 & 22.33 \\
+      & ATPPS & \shortstack{\textbf{Rounds 30--100:} \\$MSE_r=9.54\times 10^{-7}r^{4}-2.93\times 10^{-4}r^{3}$ \\ $+0.03r^{2}-2.05r+67.02$} & -1.3 & -0.49 & -0.7 & -0.89 & 13.68 \\
       \bottomrule
   \end{tabular}
 \end{sidewaystable}
@@ -42,9 +42,9 @@
       & & & \shortstack{Rounds \\ 1--5} & \shortstack{Rounds \\ 6--11} & \shortstack{Rounds \\ 12--100} & \shortstack{Rounds \\ 1--100} & \shortstack{$MSE_{100}$} \\
       \midrule
       \multirow{3}{*}{$ROC_{8,128}$} 
-      & DAB   & \makecell[l]{$MSE_r=-3.33\times 10^{-3}r^{3}+0.63r^{2}$ \\ $-40.23r+872.75$ \\ \textbf{Rounds 60-100:} \\ $MSE_r=2.96 \times 10^{-6}r^{4}-9.97\times 10^{-3}r^{3}$ \\ $+0.13r^{2}-7.16r+161.73$} & -0.12 & -0.41 & -2.1 & -1.1 & 5.18 \\
-      & PPS   & \makecell[l]{$MSE_r=6.07\times 10^{-5}r^{2}-0.02r+6.39$} & -2 & -1.9 & -0.01 & -1.1 & 5.95 \\
-      & ATPPS & \makecell[l]{$MSE_r=-0.0015x+6.05$} & -2.1 & -1.6 & -0.13 & -1.1 & 4.56 \\
+      & DAB   & \shortstack{\textbf{Rounds 15--50:} \\$MSE_r=-3.33\times 10^{-3}r^{3}+0.63r^{2}$ \\ $-40.23r+872.75$ \\ \textbf{Rounds 60-100:} \\ $MSE_r=2.96 \times 10^{-6}r^{4}-9.97\times 10^{-3}r^{3}$ \\ $+0.13r^{2}-7.16r+161.73$} & -0.12 & -0.41 & -2.1 & -1.1 & 5.18 \\
+      & PPS   & \shortstack{\textbf{Rounds 20--100:} \\ \makebox[6.8cm]{$MSE_r=-1.5\times 10^{-3}r+6.05$}} & -2 & -1.9 & -0.01 & -1.1 & 5.95 \\
+      & ATPPS & \shortstack{\textbf{Rounds 20--100:} \\ \makebox[6.8cm]{$MSE_r=6.07\times 10^{-5}r^{2}-0.02r+6.39$}} & -2.1 & -1.6 & -0.13 & -1.1 & 4.56 \\
       \bottomrule
   \end{tabular}
 \end{sidewaystable}

@@ -4,7 +4,7 @@
 \caption{Push-Pull Sum algorithm}\label{alg:PPS}
 \begin{algorithmic}[1]
 \Procedure{RequestData}{}
-\State Chose a random neighbor node $v$
+\State Choose a random neighbor node $v$
 \State Send $(\frac{s_{u,r}}{2}, \frac{w_{u,r}}{2})$ to the chosen node $v$ and the node $u$ itself
 \EndProcedure
 \Procedure{ResponseData}{}
@@ -14,7 +14,7 @@
 \EndFor
 \EndProcedure
 \Procedure{Aggregate}{}
-\State $M_{u,r} \leftarrow \{(s_{m}, w_{m})\}$ messages sent to $u$ at a round $r-1$
+\State $M_{u,r} \leftarrow \{(s_{m}, w_{m})\}$ messages sent to $u$ at round $r-1$
 \State $s_{u,r} \leftarrow \sum_{m \in M_{u,r}}^{}s_{m}, w_{u,r} \leftarrow\sum_{m \in M_{u,r}}^{}w_{m}$
 \State $f_{avg} \leftarrow \frac{s_{u,r}}{w_{u,r}}$
 \EndProcedure

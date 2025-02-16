@@ -62,15 +62,15 @@ Figure \ref{fig:completegraphMSEperRoundLogLog} a) presents the MSE reduction pe
 
 Figure \ref{fig:dabCompleteModelFit} a) shows the linear regression fit for the MSE data of the DAB. The data aligns well with the model, but the exponential regression fit suits better in this case. Figure \ref{fig:dabCompleteModelFit} b) shows the exponential regression fit for the MSE data when the DAB as a load balancing strategy is applied to the network. Even though the curve might not suggest an exponential decay, the MSE data fits with the exponential regression model following the equation:
 \begin{align}
-    MSE_r=844.63*e^{-0.01*r}.    
+    MSE_r=844.63*e^{-0.01r}.    
 \end{align}
 The decay rate of -0.01 suggests a very slow decrease in MSE. The fitted curve and model seem very suitable for the MSE data, since the fitted curve aligns with the MSE data. The MSE data of the PPS is fitted to the exponential regression model for rounds 10 to 80. Over time, randomized exchanges smooth out load imbalances, leading to an exponential decay in MSE, as seen in figure \ref{fig:ppsCompleteModelFit}. The best-fit follows the equation:
 \begin{align}
-    MSE_r=2530.41*e^{-0.9*r}.    
+    MSE_r=2530.41*e^{-0.9r}.    
 \end{align}
 The decay rate of -0.9 suggests a steeper decline in error. In Figure \ref{fig:atppsCompleteModelFit}, the exponential regression fit is visualized for the MSE data of the ATPPS curve in the Complete graph for rounds 10 to 65. The fitted curve is expressed by the equation:
 \begin{align}
-    MSE_r=4309.94*e^{-1.06*r}.    
+    MSE_r=4309.94*e^{-1.06r}.    
 \end{align}
 A steep error reduction is indicated by the decay rate of -1.06. As the PPS, the ATPPS reduces the error very effectively in an exponential manner. Rounds 66 to 100 show a plateauing of the MSE data, caused by precision problems of the double datatype in Java. The adaptive mechanism provides a faster decline in error indicated by the decay rate of -1.06 versus the one of the PPS of -0.9.
 
@@ -113,15 +113,15 @@ The behavior of the curves for the Star graph $S_{1024}$ simulations in figure \
 
 As seen in figure \ref{fig:dabStarModelFit} b) the MSE data for the DAB-balanced network aligns nearly perfectly with the fitted curve of the exponential regression model given by the equation:
 \begin{align}
-    MSE_r=840.42*e^{-0.01*r}    
+    MSE_r=840.42*e^{-0.01r}    
 \end{align}
 for the rounds 1 to 100. The decay rate of -0.01 indicates a very slow reduction in error. Since a linear decrease is suspected, the MSE data is also fitted to the linear regression model as presented in \ref{fig:dabStarModelFit} a). However, the exponential regression model aligns better with the DAB MSE data. From round to round, the improvement in the network remains minimal. This highlights the inability of the DAB to balance the network within 100 rounds to a satisfactory level. Figures \ref{fig:ppsStarModelFit} and \ref{fig:atppsStarModelFit} show the fitted curves for the MSE data of the PPS and ATPPS algorithms, respectively. The best-fit model for the MSE data of the PPS load balancing algorithm between rounds 10 to 45 follows the equation:
 \begin{align}
-    MSE_r=29794.60*e^{-1.39*r}.    
+    MSE_r=29794.60*e^{-1.39r}.    
 \end{align}
 The rounds 10 to 45 exhibit the steepest decline in MSE, and for that reason, they have been fitted to an exponential regression model. The decay rate of $-1.39$ indicates a rapid reduction in error, especially in comparison to DAB. For the ATPPS, the MSE data fits best with the exponential model in the range of rounds 18 to 60, following the equation:
 \begin{align}
-    MSE_r=9329.40*e^{-1.05*r}.    
+    MSE_r=9329.40*e^{-1.05r}.    
 \end{align}
 In Star graphs, the central node dominates communication, and load balancing heavily depends on that node. Threshold-based adjustments do not significantly impact performance under these conditions. The discrepancy between the two Push-Pull Sum-based algorithms can be explained by the fact that the ATPPS limits the number of messages due to the conditional threshold-based load transfer, which means that there is less interaction compared to the PPS.
 
@@ -237,7 +237,7 @@ for the PPS (figure \ref{fig:ppsTorusModelFit} a)) and:
 \end{align}
 for the ATPPS (figure \ref{fig:atppstorusModelFit} a)). The equations that describe the behavior of the two Push-Pull Sum-based algorithms are fitted for rounds 40 to 100 for the PPS: 
 \begin{align}
-    MSE_r = -1.15 \times 10^{-5}r^{3} + 3.205\times 10^{-3}r^{2} - 0.33r + 13.72    
+    MSE_r = -1.15 \times 10^{-5}r^{3} + 3.21\times 10^{-3}r^{2} - 0.33r + 13.72    
 \end{align}
 (figure \ref{fig:ppsTorusModelFit} b)) and for the ATPPS is:
 \begin{align}
@@ -353,7 +353,7 @@ The MSE data of all three load balancing algorithms were fitted to polynomial re
 \end{align}
 (figure \ref{fig:dab_128x896lollipopgraphModelFit}). For ATPPS, the polynomial fit is given by:
 \begin{align}
-    MSE_r=1.59\times 10^{-6}r^{4}-4.74\times 10^{-4}r^{3}+0.054r^{2}-2.94r+70.59    
+    MSE_r=1.59\times 10^{-6}r^{4}-4.74\times 10^{-4}r^{3}+0.05r^{2}-2.94r+70.59    
 \end{align}
 (figure \ref{fig:pps_128x896lollipopgraphModelFit}). The PPS MSE data, which required a higher-degree polynomial (degree 5), follows the equation:
 \begin{align}
@@ -567,7 +567,7 @@ Increasing the clique size and reducing the number of cliques favors the Push-Pu
 \begin{align}
     MSE_r=-1.5*10^{-3}r+6.05. 
 \end{align}
-The slope of $-1.5*10^{-3}$ is very small. The error in the network is barely reduced in this area. The behavior of the PPS is captured by this simple model. It does not involve any accelerations like in the exponential model. The PPS curve shows a more complex relation between the MSE reduction over the rounds, namely a polynomial of degree 2 following the equation:
+The slope of $-1.5*10^{-3}$ is very small. The error in the network is barely reduced in this area. The behavior of the PPS is captured by this simple model. It does not involve any accelerations like in the exponential model. The ATPPS curve shows a more complex relation between the MSE reduction over the rounds, namely a polynomial of degree 2 following the equation:
 \begin{align}
     MSE_r=6.07\times 10^{-5}r^{2}-0.02r+6.39    
 \end{align}

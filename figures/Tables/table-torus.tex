@@ -1,10 +1,10 @@
 \begin{sidewaystable}
   \centering
-  \caption{Simulation overview - Torus Grid: fitted model, slopes per region, and final MSE}
+  \caption{Simulation overview - $T_{32,32}$: fitted model, slopes per region, and final MSE}
   \label{table:overviewtorus}
   \begin{tabular}{ll l c c c c c}
       \toprule
-      \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope} \\ 
+      \multicolumn{2}{l}{\textbf{Topology}} & \textbf{Fitted Model} & \textbf{Slope (log-log)} \\ 
       & & & \shortstack{Rounds \\ 1--10} & \shortstack{Rounds \\ 10--39} & \shortstack{Rounds \\ 40--100} & \shortstack{Rounds \\ 1--100} & \shortstack{$MSE_{100}$} \\
       \midrule
       \multirow{3}{*}{$T_{32,32}$} 
@@ -17,18 +17,18 @@
       & -2.1 & -1.2 & -2 & -1.7 & 436.85 \\
       
       & PPS   & \shortstack{\textbf{Rounds 10--39:} \\ 
-      $MSE_r = -3.65 \times 10^{-6}r^{5} + 5.16 \times 10^{-4}r^{4}$ \\ 
-      $- 0.03r^{3} + 0.83r^{2} - 12.52r + 88.16$ \\ 
+      $MSE_r = -5.54 \times 10^{-6}r^{5} + 7.65 \times 10^{-4}r^{4}$ \\ 
+      $- 0.04r^{3} + 1.16r^{2} - 16.81r + 112.86$\\ 
       \textbf{Rounds 40--100:} \\ 
-      $MSE_r = -1.15 \times 10^{-5}r^{3} + 3.205 \times 10^{-3}r^{2}$ \\ 
+      $MSE_r = -1.15 \times 10^{-5}r^{3} + 3.21 \times 10^{-3}r^{2}$ \\ 
       $- 0.33r + 13.72$} 
       & -1.5 & -1.2 & -1.4 & -1.4 & $1.73 \times 10^{-28}$ \\
 
       & ATPPS & \shortstack{\textbf{Rounds 10--39:} \\ 
-      $MSE_r = -5.54 \times 10^{-6}r^{5} + 7.65 \times 10^{-4}r^{4}$ \\ 
-      $- 0.04r^{3} + 1.16r^{2} - 16.81r + 112.86$ \\ 
+      $MSE_r = -3.65 \times 10^{-6}r^{5} + 5.16 \times 10^{-4}r^{4}$ \\ 
+      $- 0.03r^{3} + 0.83r^{2} - 12.52r + 88.16$ \\ 
       \textbf{Rounds 40--100:} \\ 
-      $MSE_r = -9.99 \times 10^{-6}r^{3} + 2.8034 \times 10^{-3}r^{2}$ \\ 
+      $MSE_r = -9.99 \times 10^{-6}r^{3} + 2.80 \times 10^{-3}r^{2}$ \\ 
       $- 0.28r + 11.29$} 
       & -1.6 & -1.3 & -1.7 & -1.5 & $5.63 \times 10^{-28}$ \\
       \bottomrule

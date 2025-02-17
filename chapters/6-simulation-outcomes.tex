@@ -211,15 +211,15 @@ as depicted in figure \ref{fig:atppsRingModelFit}. The polynomial fit suggests t
     \caption{Ring graph - polynomial regression fit - ATPPS}
     \label{fig:atppsRingModelFit}
 \end{figure}
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/RingGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \scalebox{0.7}{\includegraphics{figures/Simulation_outcomes/RingGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
     \caption{Ring graph - heat map of slopes per region - log-log}
     \label{fig:ringgraphslopes}
 \end{figure}
 
 \section{Torus Grid Graph}\label{sec:torusgridGraph}
-Figure \ref{fig:torusMSEperRoundLogLog} shows the MSE reduction over rounds on a Torus Grid graph, plotted on a log-log scale. The DAB curve has a slightly faster initial reduction compared to PPS' and ATPPS' curves in the beginning (rounds 1 to 7). The slope in this region is superior for the DAB with a value of -2.1 compared to approximately -1.5 for the Push-Pull Sum-based algorithms (figure \ref{fig:torusgraphslopes} - log-log). The PPS and ATPPS curves maintain nearly identical performances during the middle region (rounds 8 to 40), reducing MSE at a similar rate, with a slope of -1.2 for the PPS curve and -1.3 for the ATPPS curve. DAB shows a similar slope as the PPS. In the final region DAB scores the highest slope with a value of -2, followed by the ATPPS with a value of -1.7. The PPS achieves a slope of -1.4 in this region. This suggests that DAB and ATPPS adapt more efficiently to the graph's structure during advanced rounds. PPS and ATPPS exhibit convergence, but they lag behind the DAB in reaching such low MSE values. Tori have more structured connectivity compared to a Star or Complete graph, allowing better distribution of loads via deterministic interactions. DAB's superior performance stems from it leveraging this regularity. The ATPPS achieves a balanced trade-off in this scenario. It outperforms the PPS approach, particularly in later rounds, where its adaptive mechanism prevents redundant load transfers and prioritizes exchanges that have a more significant impact on error reduction.
+Figure \ref{fig:torusMSEperRoundLogLog} shows the MSE reduction over rounds on a Torus Grid graph, plotted on a log-log scale. The DAB curve has a slightly faster initial reduction compared to PPS' and ATPPS' curves in the beginning (rounds 1 to 7). The slope in this region is superior for the DAB with a value of -2.1 compared to approximately -1.5 for the Push-Pull Sum-based algorithms (figure \ref{fig:torusgraphslopes} - log-log). The PPS and ATPPS curves maintain nearly identical performances during the middle region (rounds 8 to 40), reducing MSE at a similar rate, with a slope of -1.2 for the PPS curve and -1.3 for the ATPPS curve. DAB shows a similar slope as the PPS. In the final region DAB scores the highest slope with a value of -2, followed by the ATPPS with a value of -1.7. The PPS achieves a slope of -1.4 in this region. This suggests that DAB and ATPPS adapt more efficiently to the graph's structure during advanced rounds. PPS and ATPPS exhibit convergence, but they lag behind the DAB in reaching such low MSE values. Tori have more structured connectivity compared to a Star or Complete graph. DAB's superior performance stems from it leveraging this regularity. The ATPPS achieves a balanced trade-off in this scenario. It outperforms the PPS approach, particularly in later rounds, where its adaptive mechanism prevents redundant load transfers and prioritizes exchanges that have a more significant impact on error reduction.
 
 The uniform neighborhood structure of Tori ensures that DAB's deterministic decisions (e.g., always choosing the minimal neighbor) are consistently effective across the graph. The algorithm does not suffer from suboptimal decisions introduced by probabilistic neighbor choices, which makes it well-suited to the topology. Both PPS and ATPPS protocols rely on randomly selecting a neighbor for load exchange. While this randomness is beneficial in irregular or dense graphs (e.g., Star or Complete graphs), it is less effective in structured topologies compared to the DAB, like a Torus Grid. The Push-Pull Sum-based algorithms do not always target the most unbalanced areas. This means that load propagation can sometimes "stall" in certain regions, where they require more rounds to achieve global balance. The ATTPS draws its benefit over the PPS (especially in later rounds) by deciding which option of the available subset is the best. The discrepancy between the two load balancing algorithms widens in the last few rounds as trades between two nodes with higher load differences are more impactful once the network is already heavily balanced.
 
@@ -229,7 +229,7 @@ The fitted polynomial curve of degree 5 matches the MSE data for DAB effectively
 \end{align}
 as shown in figure \ref{fig:dabTorusModelFit} a). This suggests that in these rounds, the MSE reduction follows a complex pattern, as the loads propagate to different regions of the graph thanks to the wrap-around edges of the Tori. In later rounds, the performance of the DAB can be captured by a polynomial curve of degree 3 with the equation:
 \begin{align}
-    MSE_r=-6.01\times 10^{-<6}r^{3}+1.66\times 10^{-3}r^{2}-0.16r+6    
+    MSE_r=-6.01\times 10^{-6}r^{3}+1.66\times 10^{-3}r^{2}-0.16r+6    
 \end{align}
 (figure \ref{fig:dabTorusModelFit} b)). At this stage, load balancing stabilizes, and the reduction in MSE becomes more linear or gradual. Thus, a lower-degree polynomial suffices to model the behavior in these later rounds. The curve behavior for the PPS and ATPPS are similar to that of the DAB curve expressed for rounds 10 to 39 by the equations:
 \begin{align}
@@ -279,16 +279,16 @@ for the ATPPS (figure \ref{fig:atppstorusModelFit} a)). The equations that descr
     \caption{Torus Grid - polynomial regression fit - ATPPS; rounds 10-39 and 40-100}
         \label{fig:atppstorusModelFit}
 \end{figure}
- \begin{figure}
+ \begin{figure}[h]
      \centering
-     \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/TorusGridGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+     \scalebox{0.7}{\includegraphics{figures/Simulation_outcomes/TorusGridGraph/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
      \caption{Torus Grid - heat map of slopes per region - log-log}
      \label{fig:torusgraphslopes}
  \end{figure}
 
  \section{Lollipop Graph}\label{sec:lollipopgraph}
 \subsection{(512, 512)-Lollipop Graph}
-Figure \ref{fig:lollipopgraphMSEperRoundLogLog} displays the three curves of the load balancing algorithms. The ATPPS slightly outperforms the PPS, while the DAB underperforms compared to both Push-Pull Sum-based methods in reducing the error. The superior performance of PPS and ATPPS compared to DAB in the Lollipop graph $L_{512,512}$ can be explained by the structure of the graph and the fundamental differences in how these algorithms operate. The clique region is characterized by high connectivity and enables fast local balancing due to the low diameter for the Push-Pull Sum-based algorithms. The path region with low connectivity slows down information propagation and balancing for the Push-Pull Sum-based algorithms and favors the deterministic DAB. The initial discrepancy between the DAB and the Push-Pull Sum-based algorithms in the first 10 rounds arises due to the fast error reduction achieved by PPS and ATPPS within the clique. The DAB struggles to perform well for cliques, as observed in section \ref{sec:completeGraph}. DAB performs rather well in the Path graph which in theory is similar to the Ring graph without the edge connecting the first and last nodes as described in section \ref{sec:ringgraph}. It prioritizes nodes with the least load, which can lead to inefficient propagation along the clique. DAB does not exploit the random spreading mechanism of the Push-Pull Sum-based algorithms. The Push-Pull Sum-based algorithms achieve a steep downward slope with value -1.3 between rounds 1 and 7, while the DAB achieves a value of -0.34 (figure \ref{fig:lollipopslopes}). In the mid-to-late phase, the slope flattens for both Push-Pull Sum-based algorithms. This is evident from the slope values dropping to as low as $-0.56$ for PPS and $-0.57$ for ATPPS. In this phase, the path section of the Lollipop graph dominates the residual imbalances. The ATPPS achieves nearly identical behavior to the PPS in the early rounds, as it starts with similar strategies where the threshold is relatively easy to surpass as the load differences in the network are still very high. ATPPS outperforms the PPS slightly in the later rounds due to its ability to dynamically adjust its balancing strategy based on the current state of load imbalances. This allows it to better address residual imbalances in the path section of the Lollipop graph as showcased in section \ref{sec:ringgraph}.
+Figure \ref{fig:lollipopgraphMSEperRoundLogLog} displays the three curves of the load balancing algorithms. The ATPPS slightly outperforms the PPS, while the DAB underperforms compared to both Push-Pull Sum-based methods in reducing the error. The superior performance of PPS and ATPPS compared to DAB in the Lollipop graph $L_{512,512}$ can be explained by the structure of the graph and the fundamental differences in how these algorithms operate. The clique region is characterized by high connectivity and enables fast local balancing due to the low diameter for the Push-Pull Sum-based algorithms. The path region with low connectivity slows down information propagation and balancing for the Push-Pull Sum-based algorithms and favors the deterministic DAB. The initial discrepancy between the DAB and the Push-Pull Sum-based algorithms in the first 10 rounds arises due to the fast error reduction achieved by PPS and ATPPS within the clique. The DAB struggles to perform well for cliques, as observed in section \ref{sec:completeGraph}. DAB performs rather well in the Path graph which in theory is similar to the Ring graph without the edge connecting the first and last nodes as described in section \ref{sec:ringgraph}. It prioritizes nodes with the least load, which can lead to inefficient propagation along the clique. The Push-Pull Sum-based algorithms achieve a steep downward slope with value -1.3 between rounds 1 and 7, while the DAB achieves a value of -0.34 (figure \ref{fig:lollipopslopes}). In the mid-to-late phase, the slope flattens for both Push-Pull Sum-based algorithms. This is evident from the slope values dropping to as low as $-0.56$ for PPS and $-0.57$ for ATPPS. In this phase, the path section of the Lollipop graph dominates the residual imbalances. The ATPPS achieves nearly identical behavior to the PPS in the early rounds, as it starts with similar strategies where the threshold is relatively easy to surpass as the load differences in the network are still very high. ATPPS outperforms the PPS slightly in the later rounds due to its ability to dynamically adjust its balancing strategy based on the current state of load imbalances. This allows it to better address residual imbalances in the path section of the Lollipop graph as showcased in section \ref{sec:ringgraph}.
 
 The MSE data for the DAB is best described by a polynomial of degree 3, following the equation:
 \begin{align}
@@ -332,9 +332,9 @@ as shown in figure \ref{fig:dablollipopgraphModelFit}. The MSE trends for the PP
     \label{fig:atppslollipopgraphModelFit}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/LollipopGraph/512_512/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \scalebox{0.7}{\includegraphics{figures/Simulation_outcomes/LollipopGraph/512_512/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
     \caption{(512, 512)-Lollipop graph - heat map of slopes per region - log-log}
     \label{fig:lollipopslopes}
 \end{figure}
@@ -379,16 +379,16 @@ The MSE data of all three load balancing algorithms were fitted to polynomial re
     \label{fig:pps_128x896lollipopgraphModelFit}
 \end{figure}
 
-\begin{figure}[]
+\begin{figure}[h]
     \centering
     \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/LollipopGraph/128_896/ATPPS/ATPPS_modelfitting_rounds_99_model_2.png}}
     \caption{(128, 896)-Lollipop graph - polynomial regression fit - ATPPS}
     \label{fig:atpps_128x896lollipopgraphModelFit}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \scalebox{0.8}{\includegraphics{figures/Simulation_outcomes/LollipopGraph/128_896/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
+    \scalebox{0.7}{\includegraphics{figures/Simulation_outcomes/LollipopGraph/128_896/DAB_vs_PPS_vs_ATPPS_slopesheatmap_100rounds_log_log.png}}
     \caption{(128, 896)-Lollipop graph - heat map of slopes per region - log-log}
     \label{fig:128_896lollipopslopes}
 \end{figure}

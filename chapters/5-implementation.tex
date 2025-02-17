@@ -1,12 +1,12 @@
 \chapter{Implementation and Technology Stack}\label{chap:implementation}
-A variety of technologies were utilized to achieve the underlying results. Simulations were conducted using \textit{PeerSim}, a simulation framework for \textit{Java}. As a result of each simulation, an output file is generated containing different simulation parameters, settings, and performance metrics. The data analysis part of this project is primarily implemented using \textit{Python} as a programming language.
+A variety of technologies were utilized to achieve the underlying results. Simulations were conducted using \textit{PeerSim}, a simulation framework for \textit{Java}. As a result of each simulation, an output file is generated that contains different simulation parameters, settings, and performance metrics. The data analysis part of this project is primarily implemented using \textit{Python} as a programming language.
 
 \section{Programming Languages}\label{sec:proglangs}
-\textit{Python 3.12.6} is used for several tasks, mostly for preparing and analyzing data necessary to conduct simulations and post-simulation analysis. For plotting purposes, \textit{matplotlib v.3.9.1} is used and for handling data and data analysis \textit{SciPy v.1.14.1} and \textit{NumPy v.2.0.0} are used.
+\textit{Python 3.12.6} is used for several tasks, mostly for preparing data necessary to conduct simulations and post-simulation analysis. For plotting purposes, \textit{matplotlib v.3.9.1} is used and for handling data and data analysis \textit{SciPy v.1.14.1} and \textit{NumPy v.2.0.0} are used.
 
-For conducting the simulations, \textit{Java Oracle OpenJDK 21.0.1} and \textit{PeerSim v.1.0.5} are used.
+For conducting the simulations, \textit{Java Oracle OpenJDK 21.0.1} and \textit{PeerSim v.1.0.5} are utilized.
 
-\section{Simulation Framwork}\label{sec:simulationframework}
+\section{Simulation Framework}\label{sec:simulationframework}
 PeerSim is a simulation tool developed in Java, which is composed of two engines: the cycle-driven engine and the event-driven engine. I chose PeerSim for the simulations because it is well-suited for large-scale peer-to-peer simulations. In previous projects, I was able to conduct simulations up to $2^{14}$ nodes and could probably push the boundaries by scaling to even higher dimensions. PeerSim is designed with pluggable components, implemented as interfaces, which are intuitive to use generally. Running a simulation in PeerSim follows four steps. The first step is setting up a \textit{configuration file}, which defines key parameters such as network size and the load-balancing protocols being simulated.
 
 \begin{lstlisting}[caption=Example configuration, captionpos=b, numbers=left, label=lst:exampleConfig]
@@ -14,7 +14,7 @@ PeerSim is a simulation tool developed in Java, which is composed of two engines
 SIZE = 1024
 network.size SIZE
 
-# Synchrounous CD Protocol
+# synchronous CD-protocol
 CYCLES = 100
 simulation.cycles CYCLES
 
@@ -23,15 +23,15 @@ protocol.loadBalancingProtocols loadBalancingProtocols.
 PushPullSumProtocol
 protocol.loadBalancingProtocols.linkable loadBalancingProtocols
 
-# Control classic PPS
+# control classic PPS
 control.avgo loadBalancingProtocols.PushPullSumObserver
 
-# The protocol to operate on
+# protocol to operate on
 control.avgo.protocol loadBalancingProtocols
 control.avgo.numberOfCycles CYCLES
 \end{lstlisting}
 
-Listing \ref{lst:exampleConfig} shows a section of a configuration file used in this project. This configuration sets up a simulation of the Push-Pull Sum algorithm for a network with 1024 nodes (\textbf{lines 2 and 3}) for 100 rounds (\textbf{lines 6 and 7} in Listing \ref{lst:exampleConfig}). From \textbf{lines 10 to 12}, the Push-Pull Sum algorithm is loaded. The way the algorithms are implemented, one algorithm consists of at least two Java classes, the \textit{<ProtocolName>Protocol.java} and the \textit{<ProtocolName>Observer.java}, and a shared \textit{loadBalancingParameters.java}-class, which contains parameters like the cycle counter or topology-specific parameters as depicted in figure \ref{fig:uml}. At \textbf{line 15}, the \textit{control} class is declared, and its usage follows in \textbf{lines 18 and 19}, where it is assigned parameters of type \textit{protocol} and \textit{numberOfCycles}. This process simultaneously handles steps two and three of creating a simulation by selecting the protocols to simulate and specifying control objects. Following that, the last step is to invoke the simulator class \textit{peersim.Simulator.class}. For that, the IDE may be configured to call the simulator class on execution of the program code. Alternatively, a command line in the terminal can also invoke the simulator class. More on this in the PeerSim documentation \cite{peersimdocs}.
+Listing \ref{lst:exampleConfig} shows a section of a configuration file used in this project. This configuration sets up a simulation of the Push-Pull Sum algorithm for a network with 1024 nodes (\textbf{lines 2 and 3}) for 100 rounds (\textbf{lines 6 and 7} in Listing \ref{lst:exampleConfig}). From \textbf{lines 10 to 12}, the Push-Pull Sum algorithm is loaded. The way the algorithms are implemented, one algorithm consists of at least two Java classes, the \textit{<ProtocolName>Protocol.java} and the \textit{<ProtocolName>Observer.java}, and a shared \textit{loadBalancingParameters.java}, which contains parameters like the cycle counter or topology-specific parameters as depicted in figure \ref{fig:uml}. At \textbf{line 15}, the \textit{control} class is declared, and its usage follows in \textbf{lines 18 and 19}, where it is assigned parameters of type \textit{protocol} and \textit{numberOfCycles}. This process simultaneously handles steps two and three of creating a simulation by selecting the protocols to simulate and specifying control objects. Following that, the last step is to invoke the simulator class \textit{peersim.Simulator.class}. For that, the IDE may be configured to call the simulator class on execution of the program code. Alternatively, a command line in the terminal can also invoke the simulator class. More on this in the PeerSim documentation \cite{peersimdocs}.
 
 PeerSim provides a wide range of classes and interfaces for simulations. In the cycle-driven approach, the framework offers the \textit{CDProtocol} interface, which defines the \textit{nextCycle} method. The \textit{nextCycle} method is executed at the beginning of every simulation round.
 

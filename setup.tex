@@ -66,7 +66,8 @@
     \usepackage{pdflscape}
     \usepackage{rotating}
     \usepackage{makecell}
-
+    \theoremstyle{definition}
+    \newtheorem{definition}{Definition}[section]
 %------------------------------------------------------------------------------
 %       (re)new commands / settings
 %------------------------------------------------------------------------------
@@ -76,6 +77,8 @@
     \renewcommand{\eqref}[1]{Equation~(\ref{#1})}
     \newcommand{\figref}[1]{Figure~\ref{#1}}
     \newcommand{\tabref}[1]{Table~\ref{#1}}
+
+
 
     % ------------------- colors -------------------
     \definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}

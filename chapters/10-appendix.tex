@@ -1,6 +1,6 @@
 \chapter{Appendix}\label{chap:appendix}
 \section{Model Fitting}\label{sec:modelfitting}
-The model fitting was performed using the \textit{SciPy} and \textit{NumPy} libraries in Python. For fitting data to an exponential model, \textit{SciPy} provides the \textbf{curve\_fit} method. This method uses the Levenberg-Marquardt method to solve non-linear least squares problems \cite{SciPyCurveFit}. The linear regression was performed using the \textbf{linregress} method from \textit{scipy.stats}, which calculates a linear least squares regression for two sets of data points for x and y \cite{SciPyLinRegress}. For fitting the MSE data to a polynomial model of equation \ref{eq:polyfit}, \textit{NumPy}'s \textbf{polyfit} method was used. 
+The model fitting was performed using the \textit{SciPy} and \textit{NumPy} libraries in Python. For fitting data to an exponential model, \textit{SciPy} provides the \textbf{curve\_fit} method. This method uses the Levenberg-Marquardt method to solve non-linear least squares problems \cite{SciPyCurveFit}. The linear regression was performed using the \textbf{linregress} method from \textit{scipy.stats}, which calculates a linear least squares regression for two sets of data points for x and y \cite{SciPyLinRegress}. For fitting the MSE data to a polynomial model of equation \ref{eq:polyfit}, \textit{NumPy}'s \textbf{polyfit} method was used.
 
 \subsection{Levenberg-Marquardt Method}\label{subsec:lmMethod}
 The Levenberg-Marquardt method is a hybrid of the Gauss-Newton method and the Levenberg method (Trust-Region approach). Starting from an initial guess for the parameters, the Levenberg-Marquardt method uses the Jacobian matrix to estimate how changes in parameters affect the fitted function. Then a damped least squares step is applied, where if the parameters are far from optimal, the Levenberg-Marquardt method behaves like the gradient descent, and if the parameters are near optimal, the Levenberg-Marquardt method acts like the Gauss-Newton method. It minimizes the sum of the squared residuals:
@@ -50,7 +50,7 @@ where $P(x_{i})$ is the polynomial function. \cite{NumPyPolyfit} \cite{Vandermon
 
 Once the polynomial coefficients are computed, the polynomial is evaluated using numpy's \textbf{polyval} method. This method internally uses \textit{Horner's method} in order to reduce the number of multiplications \cite{NumPyPolyVal}. For the polynomial of the form:
 \begin{align}
-    P(x) = a_{n}x^{n}+a_{n-1}x^{n-1}+ \dots + a_{1}x+a_{0}
+    P(x) = a_{n}x^{n}+a_{n-1}x^{n-1}+ \dots + a_{1}x+a_{0},
 \end{align}
 it outputs a polynomial of form:
 \begin{align}
@@ -74,11 +74,11 @@ The simulation outcomes are presented in the tables \ref{table:overviewcompleteg
 \input{figures/Tables/table-ROC.tex}
 
 \section{Struggles of the Single-Proposal Deal-Agreement-Based Algorithm with Dense Graphs}\label{sec:struggleDAB}
-Figure \ref{fig:specialcompletegraphDemo} illustrates a Complete graph with six nodes. The red node represents the minimally loaded node in the network that carries the load $L_{min}$. Using the Single-Proposal Deal-Agreement-Based algorithm, all blue nodes propose a load transfer to the red node. Since the red node now has five potential transfer options, it evaluates these options and accepts the option with maximal effect. This behavior also occurs with Complete graphs with a larger network size. In a graph where each node is interconnected, the balancing potential is usually high, as there are many options per node, however in this stubborn deterministic way this load balancing algorithm decreases the error only in very small steps.
+Figure \ref{fig:specialcompletegraphDemo} illustrates a Complete graph with six nodes. The red node represents the minimally loaded node in the network that carries the load $L_{min}$. Using the Single-Proposal Deal-Agreement-Based algorithm, all blue nodes propose a load transfer to the red node. Since the red node now has five potential transfer options, it evaluates these options and accepts the option with maximal effect. This behavior also occurs with Complete graphs with a larger network size. In a graph where each node is interconnected, the balancing potential is usually high, as there are many options per node. However, in this stubborn deterministic way, this load balancing algorithm decreases the error only in very small steps.
 
-A similar problem arises in the Star graph, as shown in figure \ref{fig:specialstargraphDemo}. All nodes have the central node as a neighbor. Now all leaves propose a load transfer to the central node, only now with the difference that the central node is not necessarily the minimum loaded node in the network (i.e., it does not carry $L_{min}$). The minimally loaded node in the example of figure \ref{fig:specialstargraphDemo} is a leaf node. The central node now receives a maximum of 4 proposals (i.e., exactly when the central node holds the second smallest load in the network) and accepts exactly one. If the central node is the maximally loaded node (i.e., the node that carries $L_{max}$), then there will be no proposals from the leaf nodes, only the central node proposes the minimally loaded node, and that is the only load transfer.
+A similar problem arises in the Star graph, as shown in figure \ref{fig:specialstargraphDemo}. All nodes have the central node as a neighbor. Now all leaves propose a load transfer to the central node, only now with the difference that the central node is not necessarily the minimum loaded node in the network (i.e., it does not carry $L_{min}$). The minimally loaded node in the example of figure \ref{fig:specialstargraphDemo} is a leaf node. The central node now receives a maximum of 4 proposals (i.e., exactly when the central node holds the second smallest load in the network) and accepts exactly one. If the central node is the maximally loaded node (i.e., the node that carries $L_{max}$), then there will be no proposals from the leaf nodes. Only the central node proposes the minimally loaded node, and that is the only load transfer.
 
-In both examples, the number of load transfers is heavily limited.
+In both scenarios, the number of load transfers is heavily limited.
 \begin{figure}[]
     \centering
     \input{figures/Graphs/specialcompleteg.tex}

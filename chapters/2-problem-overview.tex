@@ -2,11 +2,17 @@
 The load balancing problem is defined on an undirected general graph, where each node can transfer loads to its neighboring nodes via edges to achieve a balanced network state \cite{Dinitz2023DAB}. The problem setting and the approach to address the problem are elaborated on in this section.
 
 \section{Setting}\label{sec:setting}
-\textbf{Continuous and Discrete}: In the continuous setting, nodes can transfer any amount of load over the edges, while in the discrete setting, all load transfers must consist of integer values \cite{Dinitz2023DAB}.
+\begin{definition}[Continuous and Discrete Load Transfers]
+    In the \textit{continuous} setting, nodes can transfer any amount of load over the edges, while in the \textit{discrete} setting, all load transfers must consist of integer values \cite{Dinitz2023DAB}.
+\end{definition}
 
-\textbf{Synchronous and Asynchronous}: In the synchronous setting, the time for message delivery is constant (e.g., O(1)), whereas in the asynchronous setting, the message delivery time can be unpredictably large. However, it is possible to convert an asynchronous setting into a synchronous one by adjusting the time frame within which messages are expected to be delivered. \cite{Dinitz2023DAB}
+\begin{definition}[Synchronous and Asynchronous Message Delivery]
+    In the \textit{synchronous} setting, the time for message delivery is constant (e.g., O(1)), whereas in the \textit{asynchronous} setting, the message delivery time can be unpredictably large. However, it is possible to convert an asynchronous setting into a synchronous one by adjusting the time frame within which messages are expected to be delivered. \cite{Dinitz2023DAB}
+\end{definition}
 
-\textbf{Static or Dynamic}: Load balancing algorithms can operate in either static or dynamic graph settings. In a dynamic graph, connections between nodes may change arbitrarily between rounds. In contrast, the connections and the nodes remain the same for the static graph \cite{Dinitz2023DAB}.
+\begin{definition}[Static and Dynamic Graphs]
+    Load balancing algorithms can operate in either \textit{static} or \textit{dynamic} graph settings. In a dynamic graph, connections between nodes may change arbitrarily between rounds. In contrast, the connections and the nodes remain the same for the static graph \cite{Dinitz2023DAB}.
+\end{definition}
 
 The Peer-to-Peer network is modeled as a static general graph, meaning the set of edges remains unchanged during the application of the load balancing algorithms. The objective of load balancing is achieved using local algorithms, where each node gathers information only from its direct neighbors. The setting is a continuous setting. Additionally, a synchronous message delivery assumption is made, with a constant delivery time, e.g., O(1). The experiments are conducted on six network topologies, each contains of $2^{10}$ nodes.
 

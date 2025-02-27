@@ -110,7 +110,7 @@ The Adaptive Threshold Push-Pull Sum algorithm is composed of key elements from 
 \begin{align}
     RN_{u,r} \subseteq neighborhood_{u}, |RN_{u,r}|=\lceil \log_{2}{(|neighborhood_{u}|)} \rceil
 \end{align}
-random neighbors. This increases the likelihood of selecting a well-suited neighbor for a load transfer. Selecting only one random neighbor lowers the chance to find an optimal or good neighbor to execute a load transfer. The load difference between the node $u$ and the nodes in $RN_{u,r}$ is computed and checked against a threshold $\theta$. The threshold is computed in the \textit{CalculateThresholds}-procedure. The threshold $\theta$ is calculated as:
+random neighbors. This increases the likelihood of selecting a well-suited neighbor for a load transfer. The load difference between the node $u$ and the nodes in $RN_{u,r}$ is computed and checked against a threshold $\theta$. The threshold is computed in the \textit{CalculateThresholds}-procedure. The threshold $\theta$ is calculated as:
 \begin{align}
     \theta = k*\sqrt{MSE_{r-1}}    
 \end{align}
@@ -136,22 +136,21 @@ Figure \ref{fig:ATPPSExampleSetting} depicts a similar setting as described in s
     \caption{Adaptive Threshold Push-Pull Sum: setting after round 1}
     \label{fig:ATPPSExampleResult}
 \end{figure}
-\subsection{Aspired Outcome}\label{subsec:aspiredOutcomeAdaptiveThresholdPPS}
-Considering the simulation results presented in \cite{Bayazitoglu}, the discrepancy between the MSE reduction abilities per round for the different topologies shows that the algorithms perform either very well or mediocre to bad. The motivation behind designing the Adaptive Threshold Push-Pull Sum algorithm was to find a compromise solution that enhances adaptability across various network topologies.
-
-The final results of the first load balancing step can be taken from table \ref{tab:overviewExamples}. The Push-Pull Sum algorithm shows the lowest MSE after round one, followed by the Deal-Agreement-Based algorithm and the Adaptive Threshold Push-Pull Sum algorithm. A small $k$ value was used for demonstrative purposes (as the simulations in chapter \ref{chap:simulationoutcomes} were conducted with small $k$ values). A higher k value would have a greater impact in the first round. In section \ref{chap:simulationoutcomes}, we will see that the Adaptive Threshold Push-Pull Sum algorithm proceeds to enhance in reducing error in later rounds, as the MSE and thus the thresholds adjust.
 
 \begin{table}
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
- & \textbf{Initial} & \textbf{Dinitz et al.} & \textbf{Nugroho et al.} & \textbf{Bayazitoglu} \\ \hline
-\textbf{Node A}  & 3      & 32.5    & (23.75, 1) = 23.75     & (64.625, 1.875) = 34.47 \\ \hline
-\textbf{Node B}  & 15     & 15      & (56.25, 1.416) = 39.72 & (5.625, 0.875) = 6.43   \\ \hline
-\textbf{Node C}  & 62     & 32.5    & (19.5, 0.9167) = 21.27 & (31.375, 0.625) = 50.2  \\ \hline
-\textbf{Node D}  & 44     & 44      & (24.5, 0.67) = 36.57   & (22.375, 0.625) = 35.8  \\ \hline
-\textbf{MSE} & 542.50 & 107.375 & 63.49                  & 251.86                  \\ \hline
-\end{tabular}
-\caption{State of loads after one round}
-\label{tab:overviewExamples}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+     & \textbf{Initial} & \textbf{Dinitz et al.} & \textbf{Nugroho et al.} & \textbf{Bayazitoglu} \\ \hline
+    \textbf{Node A}  & 3      & 32.5    & (23.75, 1) = 23.75     & (64.625, 1.875) = 34.47 \\ \hline
+    \textbf{Node B}  & 15     & 15      & (56.25, 1.416) = 39.72 & (5.625, 0.875) = 6.43   \\ \hline
+    \textbf{Node C}  & 62     & 32.5    & (19.5, 0.9167) = 21.27 & (31.375, 0.625) = 50.2  \\ \hline
+    \textbf{Node D}  & 44     & 44      & (24.5, 0.67) = 36.57   & (22.375, 0.625) = 35.8  \\ \hline
+    \textbf{MSE} & 542.50 & 107.375 & 63.49                  & 251.86                  \\ \hline
+    \end{tabular}
+    \caption{State of loads after one round}
+    \label{tab:overviewExamples}
 \end{table}
+
+\subsection{Results}\label{subsec:aspiredOutcomeAdaptiveThresholdPPS}
+The final results of the first load balancing step can be taken from table \ref{tab:overviewExamples}. The Push-Pull Sum algorithm shows the lowest MSE after round one, followed by the Deal-Agreement-Based algorithm and the Adaptive Threshold Push-Pull Sum algorithm. A small $k$ value was used for demonstrative purposes (as the simulations in chapter \ref{chap:simulationoutcomes} were conducted with small $k$ values). A higher k value would have a greater impact in the first round. In section \ref{chap:simulationoutcomes}, we will see that the Adaptive Threshold Push-Pull Sum algorithm proceeds to enhance in reducing error in later rounds, as the MSE and thus the thresholds adjust.

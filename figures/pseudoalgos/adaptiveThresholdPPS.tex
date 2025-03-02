@@ -7,7 +7,7 @@
     \Procedure{CheckTresholdRequestData}{}
     \State $RN_{u,r} \leftarrow$ choose $\lceil \log_{2}{(|neighborhood(u)|)} \rceil$ random neighbor
     \For{every node $v_{i} \in RN_{u,r}$}
-    \State $\Delta_{u, v_{i}} \leftarrow |(load(u) - load(v_{i}))|$
+    \State $\Delta_{u, v_{i}} \leftarrow |(load_r(u) - load_r(v_{i}))|$
     \If{$\Delta_{u,v} > \theta$}
     \State Send $(\frac{s_{u,r}}{2}, \frac{w_{u,r}}{2})$ to first node v fulfilling condition and the node $u$ itself
     \EndIf
